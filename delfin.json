@@ -1,0 +1,93 @@
+{
+  "members": {
+    "memberId1": {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "age": 21,
+      "membershipType": "active",
+      "team": "senior",
+      "activity": "competitive",
+      "swimmingDisciplines": ["freestyle", "backstroke"],
+      "coachId": "coachId1",
+      "results": {
+        "freestyle": {
+          "bestTime": 60,
+          "bestTimeDate": "2023-06-01",
+          "competitions": [
+            {
+              "eventName": "Swimming Championship",
+              "placement": 3,
+              "time": 62,
+              "date": "2023-07-01"
+            }
+          ]
+        },
+        "backstroke": {
+          "bestTime": 65,
+          "bestTimeDate": "2023-06-15"
+        }
+      },
+      "fees": {
+        "amount": 1600,
+        "status": "paid",
+        "dueDate": "2024-01-01"
+      }
+    },
+    "memberId2": {
+      "name": "Mary Smith",
+      "email": "marysmith@example.com",
+      "age": 17,
+      "membershipType": "active",
+      "team": "youth",
+      "activity": "recreational",
+      "swimmingDisciplines": ["breaststroke"],
+      "coachId": "coachId2",
+      "results": {},
+      "fees": {
+        "amount": 1000,
+        "status": "unpaid",
+        "dueDate": "2023-12-01"
+      }
+    },
+    "memberId3": {
+      "name": "George Brown",
+      "email": "georgebrown@example.com",
+      "age": 65,
+      "membershipType": "active",
+      "team": "senior",
+      "activity": "recreational",
+      "swimmingDisciplines": [],
+      "coachId": "coachId2",
+      "results": {},
+      "fees": {
+        "amount": 1200,
+        "status": "paid",
+        "dueDate": "2024-01-01"
+      }
+    }
+  },
+  "coaches": {
+    "coachId1": {
+      "name": "Coach Jane",
+      "email": "coachjane@example.com",
+      "assignedSwimmers": ["memberId1"]
+    },
+    "coachId2": {
+      "name": "Coach Mark",
+      "email": "coachMark@example.com",
+      "assignedSwimmers": ["memberId2", "memberId3"]
+    }
+  },
+  "chairman": {
+    "name": "Chairman Bob",
+    "email": "chairmanbob@example.com"
+  },
+  "treasurer": {
+    "name": "Treasurer Joe",
+    "email": "treasurerjoe@example.com",
+    "feesOverview": {
+      "totalExpectedFees": 50000,
+      "membersInArrears": ["memberId2"]
+    }
+  }
+}

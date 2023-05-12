@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #007baf;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+header h1 {
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    background-color: #023e58;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    padding: 15px 0;
+    transition: background-color 0.3s;
+}
+
+nav ul li:hover {
+    background-color: #007baf;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+main {
+    padding: 60px;
+    text-align: center;
+}
+
+main h2 {
+    color: #ffffff;
+    text-shadow: 3px 3px 4px rgb(0, 0, 0);
+    font-size: 60px;
+   
+}
+
+#overview p {
+    font-size: 1.2em;
+}
+
+
+
+#home-background {
+    background: url('https://hips.hearstapps.com/hmg-prod/images/female-swimmer-at-the-swimming-pool-royalty-free-image-1568376387.jpg?crop=1.00xw:0.752xh;0,0&resize=1200:*') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000000;
+}
