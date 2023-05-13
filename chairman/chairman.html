@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chairman Page</title>
+    <link rel="stylesheet" href="chairman.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome, Chairman!</h1>
+    </header>
+    <nav>
+        <!-- Main Navigation -->
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../treasurer/treasurer.html">Financials</a></li>
+            <li><a href="../coach/coach.html">Coaching</a></li>
+            <li><a href="../members/members.html">Members</a></li>
+        </ul>
+    </nav>
+    <nav>
+        <!-- Chairman Navigation -->
+        <ul class="chairman-nav">
+            <li><a href="Chairman-registration.html">Register New Member</a></li>
+            <li><a href="Chairman-detail.html">View/Edit Member Details</a></li>
+        </ul>
+    </nav>
+<main>
+  <!-- To-Do List -->
+  <section id="toDoList">
+    <h2>To-Do List</h2>
+    <form id="taskForm">
+      <input type="text" id="taskInput" placeholder="Add a task">
+      <button type="submit">Add</button>
+    </form>
+    <ul id="tasksList">
+      <!-- To-Do List populated by JavaScript -->
+    </ul>
+  </section>
+</main>
+    <script src="chairman.js"></script>
+</body>
+</html>

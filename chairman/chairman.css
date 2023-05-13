@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /*https://cssgradient.io/gradient-backgrounds/*/
+   background: #5433FF;  /* fallback for old browsers */
+   background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF);  
+   background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF); 
+
+}
+
+header {
+    background-color: #007baf;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+header h1 {
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    background-color: #023e58;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    padding: 15px 0;
+    transition: background-color 0.3s;
+}
+
+nav ul li:hover {
+    background-color: #007baf;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+main {
+    padding: 60px;
+    display: grid;
+    gap: 20px;
+    text-align: left;
+}
+
+/* Chairman Navigation */
+nav ul.chairman-nav {
+    background-color: #bbb;
+    border-radius: 8px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+
+#toDoList {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #333333;
+}
+
+.todo-list-wrapper {
+  margin-bottom: 25px;
+}
+
+.todo-list-wrapper li {
+  margin-bottom: 15px;
+  line-height: 1.5;
+  color: #666666;
+}
+
+.todo-list-wrapper li span {
+  display: block;
+  font-weight: 500;
+}
+
+.todo-list-wrapper li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox {
+  margin-right: 15px;
+}
+
+.remove-button {
+  background-color: #ff5555;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.remove-button:hover {
+  background-color: #ff3333;
+}
+
+#taskForm {
+  margin-bottom: 25px;
+}
+
+#taskInput {
+  margin-right: 15px;
+  padding: 25px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  width: 80%;
+  font-size: 20px;
+}
+
+button[type="submit"] {
+  background-color: #4caf50;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 20px 35px;
+  cursor: pointer;
+  transition: background-color 
+}
