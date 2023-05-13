@@ -64,6 +64,23 @@
         "status": "paid",
         "dueDate": "2024-01-01"
       }
+    },
+      "memberId4": {
+      "name": "Alice Johnson",
+      "email": "alicejohnson@example.com",
+      "age": 14,
+      "membershipType": "active",
+      "team": "youth",
+      "activity": "competitive",
+      "swimmingDisciplines": ["freestyle", "backstroke"],
+      "coachId": "coachId1",
+      "joinedDate": "2023-04-25",
+      "results": {},
+      "fees": {
+        "amount": 1000,
+        "status": "paid",
+        "dueDate": "2024-01-01"
+      }
     }
   },
   "coaches": {
