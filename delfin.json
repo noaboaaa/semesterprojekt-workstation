@@ -79,8 +79,7 @@
       "tournamentResults": [],
       "trainingResults": [{"discipline": "Freestyle", "resultTime": "1:50", "date": "2023-01-14"}],
       "paymentStatus": "paid"
-      }
-    },
+      },
     "memberId5": {
       "id": "05",
       "name": "Frank Davis",
@@ -138,3 +137,4 @@
       "paymentStatus": "unpaid"
     }
   }
+}
