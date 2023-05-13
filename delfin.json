@@ -9,6 +9,7 @@
       "activity": "competitive",
       "swimmingDisciplines": ["freestyle", "backstroke"],
       "coachId": "coachId1",
+      "joinedDate": "2020-07-10",
       "results": {
         "freestyle": {
           "bestTime": 60,
@@ -42,6 +43,7 @@
       "activity": "recreational",
       "swimmingDisciplines": ["breaststroke"],
       "coachId": "coachId2",
+      "joinedDate": "2019-01-12",
       "results": {},
       "fees": {
         "amount": 1000,
@@ -58,6 +60,7 @@
       "activity": "recreational",
       "swimmingDisciplines": [],
       "coachId": "coachId2",
+      "joinedDate": "2021-03-09",
       "results": {},
       "fees": {
         "amount": 1200,
