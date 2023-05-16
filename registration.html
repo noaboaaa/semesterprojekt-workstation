@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chairman Page</title>
+    <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Dolphin Swimming Club</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Back</a></li>
+                <li><a href="registration.html">Member Registration</a></li>
+                <li><a href="treasurer/treasurer.html">Finances</a></li>
+                <li><a href="coach/coach.html">Coaching</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Register New Member Button -->
+<button id="registerBtn" class="register-button">Register New Member</button>
+        
+        <!-- Registration Form (Hidden by Default) https://uiverse.io/glisovic01/stale-chipmunk-33 -->
+          <div id="registrationFormContainer" class="registration-form" style="display: none;" >
+            <div class="container">
+                <div class="title">Member Registration</div>
+                <div class="content">
+                    <form id="registrationForm">
+                        <div class="user-details">
+                            <!-- Full Name -->
+                            <div class="input-box">
+                                <span class="details">Full Name</span>
+                                <input type="text" id="name" name="name" placeholder="Enter full name" required>
+                            </div>
+                            <!-- Email -->
+                            <div class="input-box">
+                                <span class="details">Email</span>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+                            <!-- Age -->
+                            <div class="input-box">
+                                <span class="details">Age</span>
+                                <input type="number" id="age" name="age" placeholder="Enter your age" required>
+                            </div>
+                            <!-- Membership Type -->
+                            <div class="input-box">
+                                <span class="details">Membership Type</span>
+                                <select id="membershipType" name="membershipType" required>
+                                    <option value="">Select...</option>
+                                    <option value="active">Active</option>
+                                    <option value="passive">Passive</option>
+                                </select>
+                            </div>
+                            <!-- Swimmer Type -->
+                            <div class="input-box">
+                                <span class="details">Swimmer Type</span>
+                                <select id="activity" name="activity" required>
+                                    <option value="">Select...</option>
+                                    <option value="recreational">Recreational</option>
+                                    <option value="competitive">Competitive</option>
+                                </select>
+                            </div>
+                            <!-- Team Assignment -->
+                            <div class="input-box">
+                                <span class="details">Team Assignment</span>
+                                <select id="team" name="team" required>
+                                    <option value="">Select...</option>
+                                    <option value="junior">Junior</option>
+                                    <option value="senior">Senior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="button">
+                            <input type="submit" class="form-button" value="update">
+                            <input type="reset" class="form-button" value="Reset">
+                            <button id="closeBtn" class="form-button">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+      <!-- Members Grid -->
+        <div id="membersContainer" class="members-container"></div>
+
+        <!-- update member form -->
+   <div id="updateFormContainer" class="update-form" style="display: none;" >
+  <div class="container">
+    <div class="title">Update Member Data</div>
+    <div class="content">
+      <form id="updateForm">
+        <div class="user-details">
+                            <!-- Full Name -->
+                            <div class="input-box">
+                                <span class="details">Full Name</span>
+                                <input type="text" id="update-name" name="name" placeholder="Enter full name" required>
+                            </div>
+                            <!-- Email -->
+                            <div class="input-box">
+                                <span class="details">Email</span>
+                                <input type="email" id="update-email" name="email" placeholder="Enter your email" required>
+                            </div>
+                            <!-- Age -->
+                            <div class="input-box">
+                                <span class="details">Age</span>
+                                <input type="number" id="update-age" name="age" placeholder="Enter your age" required>
+                            </div>
+                            <!-- Membership Type -->
+                            <div class="input-box">
+                                <span class="details">Membership Type</span>
+                                <select id="update-membershipType" name="membershipType" required>
+                                    <option value="">Select...</option>
+                                    <option value="active">Active</option>
+                                    <option value="passive">Passive</option>
+                                </select>
+                            </div>
+                            <!-- Swimmer Type -->
+                            <div class="input-box">
+                                <span class="details">Swimmer Type</span>
+                                <select id="update-activity" name="activity" required>
+                                    <option value="">Select...</option>
+                                    <option value="recreational">Recreational</option>
+                                    <option value="competitive">Competitive</option>
+                                </select>
+                            </div>
+                            <!-- Team Assignment -->
+                            <div class="input-box">
+                                <span class="details">Team Assignment</span>
+                                <select id="update-team" name="team" required>
+                                    <option value="">Select...</option>
+                                    <option value="junior">Junior</option>
+                                    <option value="senior">Senior</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="button">
+                            <input type="submit" class="form-button" value="Update">
+                            <input type="reset" class="form-button" value="Reset">
+                            <button id="updateCloseBtn" class="form-button">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="registration.js"></script>
+</body>
+</html>
