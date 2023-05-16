@@ -1,0 +1,228 @@
+/*
+all colors and gradients are from (some adjusted) : https://cssgradient.io/gradient-backgrounds/
+
+
+*/
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /*https://cssgradient.io/gradient-backgrounds/*/
+   background: #5433FF;  /* fallback for old browsers */
+   background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF);  
+   background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF); 
+
+}
+
+header {
+    background-color: #007baf;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+header h1 {
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    background-color: #023e58;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    padding: 15px 0;
+    transition: background-color 0.3s;
+}
+
+nav ul li:hover {
+    background-color: #007baf;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
+/* CSS */
+.register-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #000000;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 3px;
+  background: white;
+  border: none;
+}
+
+.register-button:hover {
+  background: rgba(255, 255, 255, 0.573);
+  color: #000000;
+}
+
+
+
+/* form styling  https://uiverse.io/glisovic01/stale-chipmunk-33/*/
+.registration-form {
+  position: relative;
+  width: 400px;
+  padding: 40px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  color: #fff;
+}
+
+.registration-form .title {
+  margin: 0 0 30px;
+  padding: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.registration-form {
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+ background-blend-mode: multiply,multiply;
+}
+
+.registration-form .input-box {
+  position: relative;
+}
+
+.registration-form .input-box input,
+.registration-form .input-box select {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.registration-form .input-box span {
+  font-size: 16px;
+  color: #fff;
+}
+
+.form-button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 3px;
+  background: transparent;
+  border: none;
+}
+
+.registration-form .button input[type=submit]:hover,
+.registration-form .button input[type=reset]:hover,
+.registration-form .button button:hover {
+  background: #fff;
+  color: #272727;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+.members-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.member {
+  position: relative;
+  padding: 20px;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0, 0, 0, 0.15) 100%);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  color: #fff;
+}
+
+.member::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(at top center, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 120%);
+  border-radius: 5px;
+}
+
+.member h3 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.member p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.update-button,
+.delete-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 3px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.update-button:hover,
+.delete-button:hover {
+  background: #fff;
+  color: #272727;
+  border-radius: 5px;
+}
