@@ -1,6 +1,6 @@
 {
   "posts": {
-    "memberId1": {
+    "postId1": {
       "id": "01",
       "name": "John Doe",
       "age": 30,
@@ -22,7 +22,7 @@
       ],
       "paymentStatus": "paid"
     },
-    "memberId2": {
+    "postId2": {
       "id": "02",
       "name": "Jane Smith",
       "age": 25,
@@ -44,7 +44,7 @@
       ],
       "paymentStatus": "unpaid"
     },
-    "memberId3": {
+    "postId3": {
       "id": "03",
       "name": "Bob Martin",
       "age": 16,
@@ -66,7 +66,7 @@
       ],
       "paymentStatus": "paid"
     },
-      "memberId4": {
+      "postId4": {
        "id": "04",
       "name": "Emily White",
       "age": 22,
@@ -80,7 +80,7 @@
       "trainingResults": [{"discipline": "Freestyle", "resultTime": "1:50", "date": "2023-01-14"}],
       "paymentStatus": "paid"
       },
-    "memberId5": {
+    "postId5": {
       "id": "05",
       "name": "Frank Davis",
       "age": 60,
@@ -94,7 +94,7 @@
       "trainingResults": [{"discipline": "Backcrawl", "resultTime": "1:45", "date": "2023-02-14"}],
       "paymentStatus": "unpaid"
     },
-    "memberId6": {
+    "postId6": {
       "id": "06",
       "name": "Grace Thompson",
       "age": 15,
@@ -108,7 +108,7 @@
       "trainingResults": [],
       "paymentStatus": "paid"
     },
-    "memberId7": {
+    "postId7": {
       "id": "07",
       "name": "Harry Wilson",
       "age": 17,
@@ -122,7 +122,7 @@
       "trainingResults": [{"discipline": "Butterfly", "resultTime": "1:28", "date": "2023-03-14"}],
       "paymentStatus": "paid"
     },
-    "memberId8": {
+    "postId8": {
       "id": "08",
       "name": "Ivy Miller",
       "age": 26,
