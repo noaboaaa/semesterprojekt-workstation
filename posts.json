@@ -1,0 +1,140 @@
+{
+  "posts": {
+    "postId1": {
+      "id": "01",
+      "name": "John Doe",
+      "age": 30,
+      "email": "johndoe@example.com",
+      "membershipType": "active",
+      "swimmerType": "competitive",
+      "team": "senior",
+      "annualFee": 1600,
+      "disciplines": ["Backcrawl", "Butterfly"],
+      "tournamentResults": [
+        { "tournament": "Tournament 1", "rank": 1, "time": "1:30" }
+      ],
+      "trainingResults": [
+        {
+          "discipline": "Backcrawl",
+          "resultTime": "1:30",
+          "date": "2023-05-14"
+        }
+      ],
+      "paymentStatus": "paid"
+    },
+    "postId2": {
+      "id": "02",
+      "name": "Jane Smith",
+      "age": 25,
+      "email": "janesmith@example.com",
+      "membershipType": "active",
+      "swimmerType": "recreational",
+      "team": "senior",
+      "annualFee": 1600,
+      "disciplines": ["Freestyle"],
+      "tournamentResults": [
+        { "tournament": "Tournament 2", "rank": 2, "time": "1:45" }
+      ],
+      "trainingResults": [
+        {
+          "discipline": "Freestyle",
+          "resultTime": "1:40",
+          "date": "2023-04-14"
+        }
+      ],
+      "paymentStatus": "unpaid"
+    },
+    "postId3": {
+      "id": "03",
+      "name": "Bob Martin",
+      "age": 16,
+      "email": "bobmartin@example.com",
+      "membershipType": "active",
+      "swimmerType": "competitive",
+      "team": "junior",
+      "annualFee": 1000,
+      "disciplines": ["Butterfly"],
+      "tournamentResults": [
+        { "tournament": "Tournament 3", "rank": 1, "time": "1:20" }
+      ],
+      "trainingResults": [
+        {
+          "discipline": "Butterfly",
+          "resultTime": "1:25",
+          "date": "2023-03-14"
+        }
+      ],
+      "paymentStatus": "paid"
+    },
+      "postId4": {
+       "id": "04",
+      "name": "Emily White",
+      "age": 22,
+      "email": "emilywhite@example.com",
+      "membershipType": "active",
+      "swimmerType": "recreational",
+      "team": "senior",
+      "annualFee": 1600,
+      "disciplines": ["Freestyle", "Butterfly"],
+      "tournamentResults": [],
+      "trainingResults": [{"discipline": "Freestyle", "resultTime": "1:50", "date": "2023-01-14"}],
+      "paymentStatus": "paid"
+      },
+    "postId5": {
+      "id": "05",
+      "name": "Frank Davis",
+      "age": 60,
+      "email": "frankdavis@example.com",
+      "membershipType": "active",
+      "swimmerType": "competitive",
+      "team": "senior",
+      "annualFee": 1200,
+      "disciplines": ["Backcrawl", "Breaststroke"],
+      "tournamentResults": [{"tournament": "Tournament 5", "rank": 3, "time": "1:40"}],
+      "trainingResults": [{"discipline": "Backcrawl", "resultTime": "1:45", "date": "2023-02-14"}],
+      "paymentStatus": "unpaid"
+    },
+    "postId6": {
+      "id": "06",
+      "name": "Grace Thompson",
+      "age": 15,
+      "email": "gracethompson@example.com",
+      "membershipType": "passive",
+      "swimmerType": "recreational",
+      "team": "junior",
+      "annualFee": 500,
+      "disciplines": [],
+      "tournamentResults": [],
+      "trainingResults": [],
+      "paymentStatus": "paid"
+    },
+    "postId7": {
+      "id": "07",
+      "name": "Harry Wilson",
+      "age": 17,
+      "email": "harrywilson@example.com",
+      "membershipType": "active",
+      "swimmerType": "competitive",
+      "team": "junior",
+      "annualFee": 1000,
+      "disciplines": ["Butterfly", "Freestyle"],
+      "tournamentResults": [{"tournament": "Tournament 6", "rank": 1, "time": "1:25"}],
+      "trainingResults": [{"discipline": "Butterfly", "resultTime": "1:28", "date": "2023-03-14"}],
+      "paymentStatus": "paid"
+    },
+    "postId8": {
+      "id": "08",
+      "name": "Ivy Miller",
+      "age": 26,
+      "email": "ivymiller@example.com",
+      "membershipType": "active",
+      "swimmerType": "recreational",
+      "team": "senior",
+      "annualFee": 1600,
+      "disciplines": ["Backcrawl"],
+      "tournamentResults": [{"tournament": "Tournament 7", "rank": 2, "time": "1:35"}],
+      "trainingResults": [{"discipline": "Backcrawl", "resultTime": "1:38", "date": "2023-04-14"}],
+      "paymentStatus": "unpaid"
+    }
+  }
+}
