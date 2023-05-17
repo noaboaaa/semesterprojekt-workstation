@@ -1,120 +1,134 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const endpoint = "https://restinpeace-4a0bb-default-rtdb.firebaseio.com/";
+const endpoint = "https://restinpeace-4a0bb-default-rtdb.firebaseio.com/";
+let posts = [];
 
-  // Function to display members
-  function displayMembers(members) {
-    const membersContainer = document.getElementById("membersContainer");
-    membersContainer.innerHTML = ""; // Clear the container
+window.addEventListener("load", initApp);
 
-    members.forEach((member) => {
-      const memberCard = document.createElement("div");
-      memberCard.className = "member";
-      memberCard.dataset.id = member.id; // Save the id in the HTML for later use
+//====================INITAPP==========================//
 
-      const name = document.createElement("h3");
-      name.textContent = member.name;
-      memberCard.appendChild(name);
+function initApp() {
+  console.log("app is running");
+  updatePostsGrid();
 
-      const age = document.createElement("p");
-      age.textContent = "Age: " + member.age;
-      memberCard.appendChild(age);
+  //---------register--------//
 
-      const email = document.createElement("p");
-      email.textContent = "Email: " + member.email;
-      memberCard.appendChild(email);
+  /*document
+    .querySelector("#open-register-dialog")
+    .addEventListener("click", showRegistrationForm);
 
-      const membershipType = document.createElement("p");
-      membershipType.textContent = "Membership Type: " + member.membershipType;
-      memberCard.appendChild(membershipType);
+  document
+    .querySelector("#close-register-dialog")
+    .addEventListener("click", hideRegistrationForm);
 
-      const swimmerType = document.createElement("p");
-      swimmerType.textContent = "Swimmer Type: " + member.swimmerType;
-      memberCard.appendChild(swimmerType);
+  document
+    .querySelector("#registration-form")
+    .addEventListener("submit", registrationFormSubmitted);*/
 
-      const deleteButton = document.createElement("button");
-      deleteButton.textContent = "Delete";
-      deleteButton.className = "delete-button";
-      memberCard.appendChild(deleteButton);
+  //---------update form --------//
+  document
+    .getElementById("updateForm")
+    .addEventListener("submit", updateFormSubmitted);
 
-      console.log(deleteButton); // Debugging log
+  document
+    .getElementById("updateCloseBtn")
+    .addEventListener("click", closeUpdateForm);
 
-      const updateButton = document.createElement("button");
-      updateButton.textContent = "Update";
-      updateButton.className = "update-button";
-     
-      updateButton.addEventListener("click", () => openUpdateForm(member));
-      memberCard.appendChild(updateButton);
-
-
-      membersContainer.appendChild(memberCard);
-    });
-  }
-
-  // Open the update form and populate it with the member's data
-  function openUpdateForm(member) {
-    // Fill in the form with the member's data
-    document.getElementById("update-name").value = member.name;
-    document.getElementById("update-age").value = member.age;
-    document.getElementById("update-email").value = member.email;
-    document.getElementById("update-membershipType").value =
-      member.membershipType;
-    document.getElementById("update-activity").value = member.swimmerType;
-    // Save the member's id in the form for later use
-    document.getElementById("updateForm").dataset.id = member.id;
-    // Show the form
-    document.getElementById("updateForm").style.display = "block";
-  }
-
-  async function updateMember(event) {
-    event.preventDefault();
-
-    const form = document.getElementById("updateForm");
-    const memberId = form.dataset.id;
-
-    const memberData = {
-      name: document.getElementById("update-name").value,
-      age: document.getElementById("update-age").value,
-      email: document.getElementById("update-email").value,
-      membershipType: document.getElementById("update-membershipType").value,
-      swimmerType: document.getElementById("update-activity").value,
-    };
-
-    const response = await fetch(`${endpoint}/members/${memberId}.json`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(memberData),
-    });
-
-    if (!response.ok) {
-      alert("Failed to update member");
-    }
-
-    fetchMembers();
-    form.style.display = "none";
-  }
-
-   document
-     .getElementById("updateForm")
-     .addEventListener("submit", updateMember);
-
-  // Fetch members from Firebase
-async function fetchMembers() {
-  const response = await fetch(`${endpoint}/members.json`);
-  const data = await response.json();
-
-  console.log("Fetched data:", data); // Debugging log
-
-  const members = Object.entries(data || []).map(([id, memberData]) => ({
-    id,
-    ...memberData,
-  }));
-
-  console.log("Mapped members:", members); // Debugging log
-
-  displayMembers(members);
+    
 }
-  // Initial fetch
-  fetchMembers();
-});
+
+// ====================== get members =========================== //
+async function getPosts() {
+  const response = await fetch(`${endpoint}/posts.json`);
+  const data = await response.json();
+  const postObjects = Object.entries(data).map(([id, post]) => ({
+    ...post,
+    id,
+  }));
+  return postObjects;
+}
+
+async function updatePostsGrid() {
+  try {
+    posts = await getPosts();
+    const postContainer = document.getElementById("post-container");
+
+    // Clear the post container
+    postContainer.innerHTML = "";
+
+    // Iterate over each post in the data
+    posts.forEach((post) => {
+      const postElement = document.createElement("div");
+      postElement.classList.add("post");
+
+      // Set the content of the post element using the desired properties
+      postElement.innerHTML = `
+        <h2>${post.name}</h2>
+        <p>Email: ${post.email}</p>
+        <p>Age: ${post.age}</p>
+        <p>Membership Type: ${post.membershipType}</p>
+        <p>Swimmer Type: ${post.swimmerType}</p>
+        <button class="update-btn">Update</button>
+      `;
+
+      postContainer.appendChild(postElement);
+    });
+
+    // Add event listeners to the update buttons
+    const updateButtons = document.querySelectorAll(".update-btn");
+    updateButtons.forEach((button, index) => {
+      button.addEventListener("click", () => openUpdateForm(posts[index]));
+    });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+  }
+}
+
+function openUpdateForm(post) {
+  // Populate the form fields with the current post data
+  document.getElementById("update-name").value = post.name;
+  document.getElementById("update-email").value = post.email;
+  document.getElementById("update-age").value = post.age;
+  document.getElementById("update-membershipType").value = post.membershipType;
+  document.getElementById("update-activity").value = post.swimmerType;
+  // Add any other fields as needed
+
+  // Store the post ID in a data attribute for later use
+  document.getElementById("updateForm").dataset.postId = post.id;
+
+  // Display the form
+  document.getElementById("updateFormContainer").style.display = "block";
+}
+
+async function updateFormSubmitted(event) {
+  event.preventDefault();
+
+  // Get the updated data from the form fields
+  const updatedPost = {
+    id: document.getElementById("updateForm").dataset.postId,
+    name: document.getElementById("update-name").value,
+    email: document.getElementById("update-email").value,
+    age: document.getElementById("update-age").value,
+    membershipType: document.getElementById("update-membershipType").value,
+    swimmerType: document.getElementById("update-activity").value,
+    // Add any other fields as needed
+  };
+
+  // Call the updatePost function to update the post data
+  await updatePost(updatedPost);
+
+  // Close the update form
+  closeUpdateForm();
+}
+
+function closeUpdateForm() {
+  document.getElementById("updateFormContainer").style.display = "none";
+}
+
+async function updatePost(updatedPost) {
+  // Here, add the code to send a request to your backend to update the post data.
+  // The specific way to do this will depend on your backend.
+
+  // After the post data has been updated, refresh the posts grid:
+  updatePostsGrid();
+}
