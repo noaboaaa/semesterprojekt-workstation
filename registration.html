@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chairman Page</title>
+    <title></title>
     <link rel="stylesheet" href="registration.css">
 </head>
 <body>
@@ -21,17 +21,82 @@
         </nav>
     </header>
 
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Register New Member Button -->
-<button id="registerBtn" class="register-button">Register New Member</button>
-        
-        <!-- Registration Form (Hidden by Default) https://uiverse.io/glisovic01/stale-chipmunk-33 -->
-          <div id="registrationFormContainer" class="registration-form" style="display: none;" >
+<button id="open-register-dialog" class="register-button">Register New Member</button>
+
+
+
+    <!---------------Search sort and filter ------------------------>
+<br />
+<br />
+
+<select id="filter-field" onchange="filterPosts()">
+    <option value="">Show all</option>
+    <option value="active">Active members</option>
+    <option value="passive">Passive members</option>
+    <option value="recreational">Show only recreational swimmers</option>
+    <option value="competitive">Show only competitive swimmers</option>
+</select>
+
+
+<!-------------------- HTML for success and error pop-ups ------------------------->
+<div id="success-popup" class="popup success-popup">
+  member data successfully updated.
+</div>
+
+<div id="error-popup" class="popup error-popup">
+  There was an error updating the data. Please try again later.
+</div>
+
+<div id="register-success-popup" class="popup success-popup">
+  New member successfully registered.
+</div>
+
+<div id="register-error-popup" class="popup error-popup">
+  There was an error. Please try again later.
+</div>
+
+<div id="update-success-popup" class="popup">
+  <p>Update Successful!</p>
+</div>
+
+<!-- Error Pop-up -->
+<div id="update-error-popup" class="popup">
+  <p>Update Error!</p>
+</div>
+
+
+<!-- Success Pop-up -->
+<div id="delete-success-popup" class="popup">
+  <p>Member Successfully Deleted!</p>
+</div>
+
+<!-- Error Pop-up -->
+<div id="delete-error-popup" class="popup">
+  <p>Error Deleting Member!</p>
+</div>
+
+<div id="delete-confirmation-popup" class="popup">
+  <p>Are you sure you want to delete this post?</p>
+  <button id="deleteConfirmationYesButton" type="button" class="popup">Yes</button>
+  <button id="deleteConfirmationNoButton" type="button" class="popup">No</button>
+</div>
+
+
+<!----------------------- grid container --------------------------->
+<div id="posts" class="grid-container">
+  <div id="post-container">
+  </div>
+</div>
+
+
+<!-----------------------Register new member--------------------------------->
+<dialog id="register-dialog">
+ <!--  https://uiverse.io/glisovic01/stale-chipmunk-33 -->
+          <div id="registrationFormContainer" class="registration-form" >
             <div class="container">
                 <div class="title">Member Registration</div>
                 <div class="content">
-                    <form id="registrationForm">
+                    <form id="registration-form">
                         <div class="user-details">
                             <!-- Full Name -->
                             <div class="input-box">
@@ -65,37 +130,27 @@
                                     <option value="recreational">Recreational</option>
                                     <option value="competitive">Competitive</option>
                                 </select>
-                            </div>
-                            <!-- Team Assignment -->
-                            <div class="input-box">
-                                <span class="details">Team Assignment</span>
-                                <select id="team" name="team" required>
-                                    <option value="">Select...</option>
-                                    <option value="junior">Junior</option>
-                                    <option value="senior">Senior</option>
-                                </select>
-                            </div>
+                            </div>        
                         </div>
                         <!-- Submit Button -->
                         <div class="button">
-                            <input type="submit" class="form-button" value="update">
+                            <input type="submit" class="form-button" value="submit">
                             <input type="reset" class="form-button" value="Reset">
-                            <button id="closeBtn" class="form-button">Close</button>
+                            <button id="close-register-dialog" class="form-button">Close</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+</dialog>
 
-      <!-- Members Grid -->
-        <div id="membersContainer" class="members-container"></div>
+<!-----------------------update form --------------------------------->
 
-        <!-- update member form -->
-   <div id="updateFormContainer" class="update-form" style="display: none;" >
+<div id="updateFormContainer" class="update-form" style="display: none;" >
   <div class="container">
     <div class="title">Update Member Data</div>
     <div class="content">
-      <form id="updateForm">
+      <form id="updateForm" data-post-id="">
         <div class="user-details">
                             <!-- Full Name -->
                             <div class="input-box">
@@ -130,28 +185,19 @@
                                     <option value="competitive">Competitive</option>
                                 </select>
                             </div>
-                            <!-- Team Assignment -->
-                            <div class="input-box">
-                                <span class="details">Team Assignment</span>
-                                <select id="update-team" name="team" required>
-                                    <option value="">Select...</option>
-                                    <option value="junior">Junior</option>
-                                    <option value="senior">Senior</option>
-                                </select>
-                            </div>
-                        </div>
                         <!-- Submit Button -->
                         <div class="button">
                             <input type="submit" class="form-button" value="Update">
                             <input type="reset" class="form-button" value="Reset">
-                            <button id="updateCloseBtn" class="form-button">Close</button>
+                            <button id="updateCancelButton" type="button" class="form-button">Cancel</button>                        
+                            <button id="deletePostButton" type="button" class="form-button">Delete Post</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script src="registration.js"></script>
+ <script src="../registration.js"></script>
 </body>
 </html>
+

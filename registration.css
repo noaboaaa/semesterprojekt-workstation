@@ -1,5 +1,5 @@
 /*
-all colors and gradients are from (some adjusted) : https://cssgradient.io/gradient-backgrounds/
+all ( most of them )  colors and gradients are from (some adjusted) : https://cssgradient.io/gradient-backgrounds/
 
 
 */
@@ -58,6 +58,177 @@ nav ul li a {
 }
 
 
+
+#post-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  padding: 60px;
+  row-gap: 20;
+  column-gap: 5%;
+}
+
+
+.post {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+
+
+.post p {
+  margin: 0;
+  font-size: 16px;
+}
+
+  padding: 50px;
+  background-color: #d7c1c1;
+  border: 1px solid #c9bcbc;
+  border-radius: 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.post {
+  position: relative;
+  padding: 30px;
+  border-radius: 40px;
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0, 0, 0, 0.15) 100%);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  color: #fff;
+  width: 400px;
+}
+
+.post::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(at top center, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 120%);
+  border-radius: 40px;
+}
+
+.post h3 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+
+.update-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.update-btn:hover {
+  background: #fff;
+  color: #272727;
+  border-radius: 5px;
+}
+/* ---------- POP UPS -------------*/
+
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #5c535345;
+  padding: 20px;
+  border: 1px solid #13131368;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 9999;
+  color: #fff;
+  font-size: 16px;
+}
+
+.success-popup {
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+  background-blend-mode: multiply, multiply;
+}
+
+.error-popup {
+  background: linear-gradient(to bottom, rgba(255, 0, 0, 0.8) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+  background-blend-mode: multiply, multiply;
+}
+
+.popup span {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.popup.show {
+  display: block;
+}
+
+
+.popup.show {
+  display: block;
+  animation: fade-in 0.3s ease;
+}
+
+
+
+/* -----------SEARCH N FILTER  -----------------*/
+
+/* Search input */
+label[for="input-search"] {
+  display: block;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 16px;
+}
+
+#input-search {
+  width: 200px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.573);
+  color: #000000;
+}
+
+/* Filter dropdown */
+#filter-field {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+ background-image: linear-gradient(to top, #3b30d06c 0%, #016fff 100%);
+  width: 150px;
+}
+
+
+/* -----------REGISTRATION FORM -----------------*/
+
+
+
+/* Styling for the dialog container */
+dialog {
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+
+
 /* CSS */
 .register-button {
   display: block;
@@ -85,11 +256,11 @@ nav ul li a {
 /* form styling  https://uiverse.io/glisovic01/stale-chipmunk-33/*/
 .registration-form {
   position: relative;
-  width: 400px;
+  width: 500px;
   padding: 40px;
   margin: 20px auto;
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.31);
   border-radius: 10px;
   color: #fff;
 }
@@ -156,54 +327,66 @@ nav ul li a {
 }
 
 
+/* -----------UPDATE FORM -----------------*/
 
-
-
-
-
-
-
-
-.members-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+#updateFormContainer {
+  display: none;
+ 
 }
 
-.member {
-  position: relative;
-  padding: 20px;
-  border-radius: 5px;
-  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0, 0, 0, 0.15) 100%);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+.update-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  padding: 40px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.31);
+  border-radius: 10px;
   color: #fff;
+   z-index: 9999;
 }
 
-.member::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(at top center, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 120%);
-  border-radius: 5px;
-}
-
-.member h3 {
-  margin: 0 0 10px;
+.update-form .title {
+  margin: 0 0 30px;
+  padding: 0;
+  text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-.member p {
-  margin: 0;
-  font-size: 16px;
+.update-form {
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+ background-blend-mode: multiply,multiply;
 }
 
-.update-button,
-.delete-button {
+.update-form .input-box {
+  position: relative;
+}
+
+.update-form .input-box input,
+.update-form .input-box select {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.update-form .input-box span {
+  font-size: 16px;
+  color: #fff;
+}
+
+.form-button {
+  position: relative;
   display: inline-block;
   padding: 10px 20px;
   font-weight: bold;
@@ -213,15 +396,15 @@ nav ul li a {
   text-transform: uppercase;
   overflow: hidden;
   transition: .5s;
+  margin-top: 40px;
   letter-spacing: 3px;
   background: transparent;
   border: none;
-  cursor: pointer;
-  margin-top: 20px;
 }
 
-.update-button:hover,
-.delete-button:hover {
+.update-form .button input[type=submit]:hover,
+.update-form .button input[type=reset]:hover,
+.update-form .button button:hover {
   background: #fff;
   color: #272727;
   border-radius: 5px;
