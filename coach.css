@@ -1,0 +1,353 @@
+/*
+all ( most of them )  colors and gradients are from (some adjusted) : https://cssgradient.io/gradient-backgrounds/
+
+
+*/
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /*https://cssgradient.io/gradient-backgrounds/*/
+   background: #5433FF;  /* fallback for old browsers */
+   background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF);  
+   background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF); 
+
+}
+
+header {
+    background-color: #007baf;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+header h1 {
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+nav {
+    background-color: #023e58;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    padding: 15px 0;
+    transition: background-color 0.3s;
+}
+
+nav ul li:hover {
+    background-color: #007baf;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+/* Adjust the width and positioning of the sections */
+
+
+
+
+
+#post-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  row-gap: 20px;
+}
+
+#post-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  padding: 60px;
+  row-gap: 20;
+  column-gap: 5%;
+  margin-left: auto; /* Align the post container to the right */
+  margin-right: 60px; /* Add some right margin for spacing */
+
+}
+
+
+.post {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+
+
+.post p {
+  margin: 0;
+  font-size: 16px;
+}
+
+  padding: 50px;
+  background-color: #d7c1c1;
+  border: 1px solid #c9bcbc;
+  border-radius: 40px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.post {
+  position: relative;
+  padding: 30px;
+  border-radius: 40px;
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0, 0, 0, 0.15) 100%);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+  color: #fff;
+  width: 400px;
+}
+
+.post::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(at top center, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 120%);
+  border-radius: 40px;
+}
+
+.post h3 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.post button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.post button:hover {
+    background-color: #0056b3;
+}
+
+.post button.update-training-results,
+.post button.update-tournament-results {
+    background-color: #28a745;
+    z-index: 1;
+}
+
+.post button.update-training-results:hover,
+.post button.update-tournament-results:hover {
+    background-color: #1c7430;
+    z-index: 1;
+}
+
+
+
+/* ----------- dialog-----------------*/
+.hidden {
+  display: none;
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  padding: 40px;
+  margin: 20px auto;
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.31);
+  border-radius: 10px;
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+  background-blend-mode: multiply,multiply;
+   z-index: 9999;
+}
+
+.dialog h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.dialog h3 {
+   margin: 0 0 30px;
+  padding: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.dialog p {
+  margin: 0 0 30px;
+  padding: 0;
+  text-align: center;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+#closeTournamentResultsButton {
+ position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #082b5193;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 3px;
+  border: none;
+  z-index: 1;
+}
+
+#closeTrainingResultsButton {
+ position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #082b5193;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 3px;
+  border: none;
+  z-index: 1;
+}
+
+.dialog-button:hover {
+  background-color: #0069d9;
+}
+
+.dialog::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dialog::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.dialog::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.dialog::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+
+/* ----------- form -----------------*/
+
+.update-form {
+  position: fixed; /* Positions the element relative to the viewport */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Translates the element up and left by half its own width and height to perfectly center it */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%; /* You can adjust the width of the form as needed */
+  max-width: 600px; /* You can adjust the max-width of the form as needed */
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Optional: adds a slight shadow for better distinction from the background */
+  background: white; /* Change this to match your desired form background color */
+  border-radius: 8px; /* Optional: rounds the corners of the form */
+  z-index: 9999;
+}
+
+.form-button{
+ position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #082b5193;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  margin-top: 40px;
+  letter-spacing: 3px;
+  border: none;
+  z-index: 1;
+}
+
+.form-button:hover{
+  background: #fff;
+  color: #272727;
+  border-radius: 5px;
+}
+
+
+
+
+#topSwimmersContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 20px 0;
+  overflow-y: auto;
+}
+
+#topSwimmersContent div {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 1px solid white;
+}
+
+#topSwimmersContent div:last-child {
+  border-bottom: none;
+}
+
+#topSwimmersContent h3 {
+  margin: 0;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+button#closeTopSwimmersButton {
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: black;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="registration.css">
+    <link rel="stylesheet" href="finance.css">
 </head>
-<body> 
+
+<body>
     <!-- Header -->
     <header>
         <h1>Dolphin Swimming Club</h1>
@@ -15,12 +17,62 @@
             <ul>
                 <li><a href="../index.html">Back</a></li>
                 <li><a href="registration.html">Member Registration</a></li>
-                <li><a href="treasurer/treasurer.html">Finances</a></li>
-                <li><a href="coach/coach.html">Coaching</a></li>
+                <li><a href="finance.html">Finance</a></li>
+                <li><a href="coach.html">Coaching</a></li>
             </ul>
         </nav>
     </header>
 
-     <script src="../finance.js"></script>
+    <main>
+
+        <!-- Table Section -->
+     <!-- Table Section -->
+<section id="table" class="table-section">
+    <div class="table-container">
+        <div class="table">
+            <div class="table__header">
+                <div class="input-group">
+                    <input id="search-input" type="text" placeholder="Search">
+                </div>
+                <select id="filter-select">
+                    <option value="">All</option>
+                    <option value="paid">Paid</option>
+                    <option value="unpaid">Not Paid</option>
+                </select>
+            </div>
+            <div class="table__body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Annual Fee</th>
+                            <th>Payment Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Table data will be populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+ <!-- Annual Income Section -->
+<section id="annual-income-section">
+    <div class="income-section-container">
+        <div class="income-box">
+            <h2>Expected Annual Income</h2>
+            <p id="annual-income"></p>
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <script src="../finance.js"></script>
 </body>
+
 </html>
