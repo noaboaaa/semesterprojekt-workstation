@@ -22,16 +22,16 @@
     </header>
 
     <!----------------------- grid container + sidebar --------------------------->
- <main>
+    <main>
         <section id="top-5">
-  <!-- Top Swimmers Dialog -->
-    <div id="topSwimmersDialog" class="dialog hidden">
-        <h2></h2>
-        <div id="topSwimmersContent">
-            <!-- Top swimmers content will be populated dynamically -->
-        </div>
-        <button id="closeTopSwimmersButton" class="dialog-button">Close</button>
-    </div>            
+            <!-- Top Swimmers Dialog -->
+            <div id="topSwimmersDialog" class="dialog hidden">
+                <h2></h2>
+                <div id="topSwimmersContent">
+                    <!-- Top swimmers content will be populated dynamically -->
+                </div>
+                <button id="closeTopSwimmersButton" class="dialog-button">Close</button>
+            </div>            
 
             <button id="junior-filter-button">Top 5 Junior Swimmers</button>
             <button id="senior-filter-button">Top 5 Senior Swimmers</button>
@@ -39,117 +39,75 @@
 
         <section id="main-section">
             <div id="posts" class="grid-container">
-              <div id="post-container"> 
-
-              </div>
+                <div id="post-container"> 
+                    <!-- Competitive members' posts will be populated dynamically -->
+                </div>
             </div>
         </section>
 
-
-<!-----------------------view tournament results dialog--------------------------------->
-
-<div id="tournamentResultsDialog" class="dialog hidden">
-  <div class="dialog-content">
-    <h2></h2>
- 
-    <div id="tournamentResultsContent">
-      <!-- Tournament results content will be populated dynamically -->
-    </div>
-    <button id="closeTournamentResultsButton" class="dialog-button">Close</button>
-  </div>
-</div>
-<!-----------------------update tournament results form -------------------------------->
-<div id="updateTournamentResultsFormContainer" class="update-form" style="display: none;" >
-  <div class="container">
-    <div class="title"> add new tournament results </div>
-    <div class="content">
-      <form id="updateTournamentResultsForm" data-post-id="">
-        <div class="swimmer-tournament-results">
-                    
-                           <!-- tournament -->
-                            <div class="input-box">
-                                <span class="details"> Tournament </span>
-                                <input type="text" id="add-tournament-number" name="tournament" required>
-                            </div>
-                            <!-- rank-->
-                            <div class="input-box">
-                                <span class="details"> Rank</span>
-                                <input type="text" id="add-results-time" name="resultsTime" required>
-                            </div>
-
-                            <!-- time-->
-
-                             <div class="input-box">
-                                <span class="details"> Time </span>
-                                <input type="text" id="add-time" name="time" required>
-                            </div>
-
-                        <!-- Submit Button -->
-                        <div class="button">
-                            <input type="submit" class="form-button" value="Add results">
-                            <input type="reset" class="form-button" value="Reset">
-                            <button id="close" type="button" class="form-button">Close</button>                        
-                        </div>
-                    </form>
+        <!-----------------------view results dialog--------------------------------->
+        <div id="viewResultsDialog" class="dialog hidden">
+            <div class="dialog-content">
+                <h2>View Results</h2>
+                <div id="trainingResultsContent" class="dialog-content-1">
+                    <h3>Training Results</h3>
+                    <ul id="trainingResultsList">
+                        <!-- Training results will be dynamically populated here -->
+                    </ul>
                 </div>
+                <div id="tournamentResultsContent" class="dialog-content-1">
+                    <h3>Tournament Results</h3>
+                    <ul id="tournamentResultsList">
+                        <!-- Tournament results will be dynamically populated here -->
+                    </ul>
+                </div>
+                <button id="closeViewResultsButton" class="dialog-button">Close</button>
             </div>
         </div>
 
-
-<!-----------------------view training results dialog--------------------------------->
-
-<div id="trainingResultsDialog" class="dialog hidden">
-  <h2></h2>
-  <div id="trainingResultsContent">
-    <!-- Training results content will be populated dynamically -->
-  </div>
-  <button id="closeTrainingResultsButton" class="dialog-button">Close</button>
-</div>
-
-
-<!-----------------------update training results form -------------------------------->
-
-<div id="updateTrainingResultsFormContainer" class="update-form" style="display: none;" >
-  <div class="container">
-    <div class="title"> add new training results </div>
-    <div class="content">
-      <form id="updateTrainingResultsForm" data-post-id="">
-        <div class="swimmer-training-results">
-                            <!-- Membership Type -->
-                            <div class="input-box">
-                                <span class="details"> dicipline </span>
-                                <select id="add-discipline" name="discipline" required>
-                                    <option value="">Select...</option>
-                                    <option value="freestyle">Freestyle</option>
-                                    <option value="butterfly">Butterfly</option>
-                                    <option value="backcrawl">Backcrawl</option>
-                                    <option value="breaststroke">Breaststroke</option>
-                                </select>
-                            </div>
-                            <!-- time -->
-                            <div class="input-box">
-                                <span class="details"> Time</span>
-                                <input type="text" id="add-results-time" name="resultsTime" required>
-                            </div>
-
-                            <!-- date-->
-
-                             <div class="input-box">
-                                <span class="details"> date </span>
-                                <input type="text" id="add-date" name="date" required>
-                            </div>
-
-                        <!-- Submit Button -->
-                        <div class="button">
-                            <input type="submit" class="form-button" value="Add results">
-                            <input type="reset" class="form-button" value="Reset">
-                            <button id="close" type="button" class="form-button">Close</button>                        
+        <!-----------------------add new results form -------------------------------->
+        <div id="addResultsFormContainer" class="form hidden">
+            <div class="container">
+                <div class="title">Add New Results</div>
+                <div class="content">
+                    <form id="addResultsForm" data-post-id="">
+                        <div class="input-box">
+                            <span class="details">Type</span>
+                            <select id="resultType" name="resultType" required>
+                                <option value="">Select...</option>
+                                <option value="tournament">Tournament</option>
+                                <option value="training">Training</option>
+                            </select>
                         </div>
+                        <div class="input-box">
+                            <span class="details">Discipline</span>
+                            <select id="disciplineInput" name="discipline" required>
+                                <option value="">Select...</option>
+                                <option value="butterfly">Butterfly</option>
+                                <option value="backcrawl">Backcrawl</option>
+                                <option value="freestyle">Freestyle</option>
+                                <option value="breaststroke">Breaststroke</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Time</span>
+                            <input type="text" id="rankTimeInput" name="rankTime" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Date</span>
+                            <input type="date" id="dateInput" name="date" required>
+                        </div>
+                       <div class="button">
+                        <input type="submit" id="submitAddResultsButton" class="form-button" value="Add Results">
+                        <input type="reset" class="form-button" value="Reset">
+                        <button id="closeAddResultsButton" type="button" class="form-button">Close</button>
+                    </div>
                     </form>
                 </div>
             </div>
         </div>
     </main>
-     <script src="../coach.js"></script>
+    <script src="coach.js"></script>
 </body>
 </html>
+

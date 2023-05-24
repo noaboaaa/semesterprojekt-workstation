@@ -1,63 +1,60 @@
 "use strict";
 
-// ====================== Constants =========================== //
+// ======================================= CONSTANTS ======================================= //
 
 const endpoint = "https://restinpeace-4a0bb-default-rtdb.firebaseio.com/";
 let posts = [];
-
-
-// ====================== Event Listeners =========================== //
+let results = [];
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  // Dialogs
-  const tournamentResultsDialog = document.querySelector(
-    "#tournamentResultsDialog"
-  );
-  const trainingResultsDialog = document.querySelector(
-    "#trainingResultsDialog"
-  );
-
-  // Close buttons
-  const closeTournamentResultsButton = document.querySelector(
-    "#closeTournamentResultsButton"
-  );
-  const closeTrainingResultsButton = document.querySelector(
-    "#closeTrainingResultsButton"
-  );
-  closeTournamentResultsButton.addEventListener("click", () => {
-    tournamentResultsDialog.classList.add("hidden");
-  });
-
-  closeTrainingResultsButton.addEventListener("click", () => {
-    trainingResultsDialog.classList.add("hidden");
-  });
-
-  
   console.log("DOMContentLoaded event fired");
   initApp();
+  // Event listener for the dynamically generated button
+  const postContainer = document.getElementById("post-container");
+  postContainer.addEventListener("click", function (event) {
+    // Check if the clicked element is the dynamically generated button
+    if (event.target && event.target.id === "addResultsButton") {
+      openAddResultsForm();
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  const closeAddResultsButton = document.getElementById(
+    "closeAddResultsButton"
+  );
+  const submitAddResultsButton = document.getElementById(
+    "submitAddResultsButton"
+  );
+
+  closeAddResultsButton.addEventListener("click", closeAddResultsForm);
+  submitAddResultsButton.addEventListener("click", submitAddResultsForm);
 });
 
 // ====================== INITAPP =========================== //
 
-function initApp() {
+async function initApp() {
   console.log("App is running");
-  updatePostsGrid();
+  await updatePostsGrid();
+  await getResults();
 }
-// ====================== Get Posts =========================== //
+
+// ======================================= GET POSTS ======================================= //
 
 async function getPosts() {
-
-  
   try {
     const response = await fetch(`${endpoint}/posts.json`);
     const data = await response.json();
-    console.log("Fetched posts in getPosts:", data); // Add this line
+
+    if (!data || Object.keys(data).length === 0) {
+      console.log("No posts found.");
+      return [];
+    }
 
     const postObjects = Object.entries(data).map(([postId, post]) => ({
       id: postId,
       ...post,
     }));
-    console.log("Transformed posts:", postObjects);
 
     // Filter posts to only include competitive swimmers
     const competitiveSwimmers = postObjects.filter(
@@ -67,18 +64,48 @@ async function getPosts() {
     return competitiveSwimmers;
   } catch (error) {
     console.log("Error fetching posts:", error);
+    return [];
   }
 }
+
+// ======================================= GET RESULTS ======================================= //
+
+async function getResults() {
+  try {
+    const response = await fetch(`${endpoint}/results.json`);
+    const data = await response.json();
+    console.log("Fetched results in getResults:", data);
+
+    if (data && Array.isArray(data)) {
+      results = data.map((result, index) => ({
+        id: "r" + (index + 1).toString().padStart(2, "0"),
+        ...result,
+      }));
+      console.log("Transformed results:", results);
+    } else {
+      results = [];
+      console.log("No results found in the response.");
+    }
+
+    return results;
+  } catch (error) {
+    console.log("Error fetching results:", error);
+  }
+}
+
+
+// ======================================= UPDATE POST GRID ======================================= //
+
 async function updatePostsGrid() {
   try {
-    posts = await getPosts();
-    console.log("Fetched posts:", posts); // Log the fetched posts
+    posts = await getPosts(); // Assign the fetched posts to the global 'posts' variable
+    console.log("Fetched posts:", posts);
 
     const postContainer = document.querySelector("#post-container");
     postContainer.innerHTML = "";
 
     posts.forEach((post, index) => {
-      console.log("Updating UI for post:", post); // Log the current post being processed
+      console.log("Updating UI for post:", post);
 
       const postElement = document.createElement("div");
       postElement.classList.add("post");
@@ -87,258 +114,168 @@ async function updatePostsGrid() {
         <h2>${post.name}</h2>
         <p>Age: ${post.age}</p>
         <p>Team: ${post.team}</p>
-        <button class="view-training-results">View training results</button>
-        <button class="update-training-results">Update training results</button>
-        <button class="view-tournament-results">View tournament results</button>
-        <button class="update-tournament-results">Update tournament results</button>
+        <button class="view-results">View Results</button>
+        <button class="update-results">Add New Results</button>
       `;
 
-      const viewTrainingResultsButton = postElement.querySelector(
-        ".view-training-results"
-      );
-      const updateTrainingResultsButton = postElement.querySelector(
-        ".update-training-results"
-      );
-      const viewTournamentResultsButton = postElement.querySelector(
-        ".view-tournament-results"
-      );
-      const updateTournamentResultsButton = postElement.querySelector(
-        ".update-tournament-results"
-      );
+      const viewResultsButton = postElement.querySelector(".view-results");
+      const updateResultsButton = postElement.querySelector(".update-results");
 
-      viewTrainingResultsButton.addEventListener("click", () => {
-        openTrainingResultsDialog(post);
+      viewResultsButton.addEventListener("click", () => {
+        openViewResultsDialog(post);
       });
 
-      updateTrainingResultsButton.addEventListener("click", () => {
-        openUpdateTrainingResultsForm(post);
-      });
-
-      viewTournamentResultsButton.addEventListener("click", () => {
-        openTournamentResultsDialog(post);
-      });
-
-      updateTournamentResultsButton.addEventListener("click", () => {
-        openUpdateTournamentResultsForm(post);
-      });
+     updateResultsButton.addEventListener("click", () => {
+       openAddResultsForm(post.id); // Pass the post.id as the memberId
+     });
 
       postContainer.appendChild(postElement);
     });
 
-    console.log("Updated UI:", postContainer.innerHTML); // Log the updated UI
+    console.log("Updated UI:", postContainer.innerHTML);
   } catch (error) {
     console.error("Error updating posts grid:", error);
   }
 }
 
 
-// ======================================= TOURNAMENT DIALOG======================================= //
 
-function openTournamentResultsDialog(post) {
-  console.log("Opening tournament results dialog for: ", post);
+// ======================================= VIEW RESULTS DIALOG ======================================= //
 
-  const dialog = document.querySelector("#tournamentResultsDialog");
-  const content = document.querySelector("#tournamentResultsContent");
+async function openViewResultsDialog(post) {
+  console.log("Opening View Results dialog for: ", post);
 
-  // Clear the existing content
-  content.innerHTML = "";
-
-  post.tournamentResults.forEach((result) => {
-    content.innerHTML += `
-      <h2>Tournament Results</h2>
-      <h3>${post.name}</h3>
-      <p>Tournament: ${result.tournament}</p>
-      <p>Rank: ${result.rank}</p>
-      <p>Time: ${result.time}</p>
-    `;
-  });
-
-  dialog.classList.remove("hidden");
-}
-
-// Function to close the tournament results dialog
-function closeTournamentResultsDialog() {
-  const dialog = document.querySelector("#tournamentResultsDialog");
-  dialog.classList.add("hidden");
-}
-
-// Add event listener for the close button in the tournament results dialog
-const closeTournamentResultsButton = document.querySelector(
-  "#closeTournamentResultsButton"
-);
-closeTournamentResultsButton.addEventListener(
-  "click",
-  closeTournamentResultsDialog
-);
-
-// =======================================TRAINING DIALOG======================================= //
-// Function to open the training results dialog
-function openTrainingResultsDialog(post) {
-  console.log("Opening training results dialog for: ", post);
-
-  const dialog = document.querySelector("#trainingResultsDialog");
-  const content = document.querySelector("#trainingResultsContent");
+  const dialog = document.querySelector("#viewResultsDialog");
+  const trainingResultsList = document.querySelector("#trainingResultsList");
+  const tournamentResultsList = document.querySelector("#tournamentResultsList");
 
   // Clear the existing content
-  content.innerHTML = "";
+  trainingResultsList.innerHTML = "";
+  tournamentResultsList.innerHTML = "";
 
-  post.trainingResults.forEach((result) => {
-    content.innerHTML += `
-      <h2>Training Results</h2>
-      <h3>${post.name}</h3>
-      <p>Discipline: ${result.discipline}</p>
-      <p>Time: ${result.resultTime}</p>
-      <p>Date: ${result.date}</p>
-    `;
-  });
+  // Fetch the latest results data
+  await getResults();
 
-  dialog.classList.remove("hidden");
-}
+  // Get the results for the current post
+  const postResults = results.filter((result) => result.memberId === post.id);
 
-function closeTrainingResultsDialog() {
-  const dialog = document.querySelector("#trainingResultsDialog");
-  dialog.classList.add("hidden");
-}
-
-// Add event listener for the close button in the training results dialog
-const closeTrainingResultsButton = document.querySelector(
-  "#closeTrainingResultsButton"
-);
-closeTrainingResultsButton.addEventListener(
-  "click",
-  closeTrainingResultsDialog
-);
-
-
-// ====================== UPDATE TOURNAMENT RESULTS=========================== //
-
-function openUpdateTournamentResultsForm(post) {
-  console.log("openUpdateTournamentResultsForm function called with post: ", post);
-
-  const formContainer = document.querySelector("#updateTournamentResultsFormContainer");
-  const form = document.querySelector("#updateTournamentResultsForm");
-
-  // Show the form container
-  formContainer.style.display = "block";
-
-  // Populate the form with the post data
-  form.dataset.postId = post.id;
-  form.querySelector("#add-tournament-number").value = "";
-  form.querySelector("#add-results-time").value = "";
-  form.querySelector("#add-time").value = "";
-}
-
-const updateTournamentResultsForm = document.querySelector("#updateTournamentResultsForm");
-updateTournamentResultsForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const form = event.target;
-  const postId = form.dataset.postId;
-
-  // Retrieve the form data
-  const tournamentNumber = form.querySelector("#add-tournament-number").value;
-  const resultsTime = form.querySelector("#add-results-time").value;
-  const time = form.querySelector("#add-time").value;
-
-  // Find the post in the posts array
-  const post = posts.find((p) => p.id === postId);
-
-  // Create a new tournament result object
-  const newResult = {
-    tournament: tournamentNumber,
-    rank: resultsTime,
-    time: time,
-  };
-
-  // Add the new result to the existing tournament results of the post
-  post.tournamentResults.push(newResult);
-
-  // Send the updated results to the backend
-  try {
-    const response = await fetch(`${endpoint}/posts/${postId}.json`, {
-      method: "PATCH",
-      body: JSON.stringify({ tournamentResults: post.tournamentResults }),
-    });
-    const responseBody = await response.json();
-    console.log("PATCH response body:", responseBody); // Add this line
-  } catch (error) {
-    console.error("Error updating tournament results:", error);
-  }
-
-  // Update the tournament results dialog
-  openTournamentResultsDialog(post);
-
-  // Hide the form container
-  const formContainer = document.querySelector(
-    "#updateTournamentResultsFormContainer"
+  // Separate the results into training and tournament
+  const trainingResults = postResults.filter(
+    (result) => result.type === "training"
   );
-  formContainer.style.display = "none";
-});
+  const tournamentResults = postResults.filter(
+    (result) => result.type === "tournament"
+  );
 
-// ====================== UPDATE TRAINING RESULTS=========================== //
+  // Populate the training results
+  trainingResults.forEach((result) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}`;
+    trainingResultsList.appendChild(listItem);
+  });
 
-function openUpdateTrainingResultsForm(post) {
-  console.log("openUpdateTrainingResultsForm function called with post: ", post);
+  // Populate the tournament results
+  tournamentResults.forEach((result) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}`;
+    tournamentResultsList.appendChild(listItem);
+  });
 
-  const formContainer = document.querySelector("#updateTrainingResultsFormContainer");
-  const form = document.querySelector("#updateTrainingResultsForm");
+  dialog.classList.remove("hidden");
+  dialog.querySelector("h2").textContent = `Results for ${post.name}`;
 
-  // Show the form container
-  formContainer.style.display = "block";
-
-  // Populate the form with the post data
-  form.dataset.postId = post.id;
-  form.querySelector("#add-discipline").value = "";
-  form.querySelector("#add-results-time").value = "";
-  form.querySelector("#add-date").value = "";
+  // Close dialog event listener
+  const closeDialogButton = dialog.querySelector("#closeViewResultsButton");
+  closeDialogButton.addEventListener("click", () => {
+    dialog.classList.add("hidden");
+  });
 }
 
-const updateTrainingResultsForm = document.querySelector("#updateTrainingResultsForm");
-updateTrainingResultsForm.addEventListener("submit", async (event) => {
+
+
+// ======================================= ADD NEW RESULTS FORM ======================================= //
+
+function openAddResultsForm(memberId) {
+  const formContainer = document.getElementById("addResultsFormContainer");
+  formContainer.classList.remove("hidden");
+  formContainer.dataset.memberId = memberId;
+}
+
+
+function closeAddResultsForm() {
+  const formContainer = document.getElementById("addResultsFormContainer");
+  formContainer.classList.add("hidden");
+  resetAddResultsForm();
+}
+
+function resetAddResultsForm() {
+  const form = document.getElementById("addResultsForm");
+  form.reset();
+}
+
+function submitAddResultsForm(event) {
   event.preventDefault();
-  const form = event.target;
-  const postId = form.dataset.postId;
 
-  // Retrieve the form data
-  const discipline = form.querySelector("#add-discipline").value;
-  const resultTime = form.querySelector("#add-results-time").value;
-  const date = form.querySelector("#add-date").value;
+  const formContainer = document.getElementById("addResultsFormContainer");
+  const memberId = formContainer.dataset.memberId;
 
-  // Find the post in the posts array
-  const post = posts.find((p) => p.id === postId);
+  const resultType = document.getElementById("resultType").value;
+  const discipline = document.getElementById("disciplineInput").value;
+  const rankTime = document.getElementById("rankTimeInput").value;
+  const date = document.getElementById("dateInput").value;
 
-  // Create a new training result object
   const newResult = {
+    id: generateResultId(),
+    memberId: memberId,
+    type: resultType,
     discipline: discipline,
-    resultTime: resultTime,
+    resultTime: rankTime,
     date: date,
   };
 
-  // Add the new result to the existing training results of the post
-  post.trainingResults.push(newResult);
+  results.push(newResult);
+  console.log("New result successfully added:", newResult);
 
-  // Send the updated results to the backend
-  try {
-    const response = await fetch(`${endpoint}/posts/${postId}.json`, {
-      method: "PATCH",
-      body: JSON.stringify({ trainingResults: post.trainingResults }),
-    });
-    console.log("PATCH response:", response);
-  } catch (error) {
-    console.error("Error updating training results:", error);
-  }
+  updateViewResultsDialog(memberId);
+  closeAddResultsForm();
+}
 
-  // Update the training results dialog
-  openTrainingResultsDialog(post);
 
-  // Hide the form container
-  const formContainer = document.querySelector(
-    "#updateTrainingResultsFormContainer"
+function generateResultId() {
+  // Generate a unique result ID
+  return "r" + (results.length + 1).toString().padStart(2, "0");
+}
+
+// ======================================= UPDATE VIEW RESULTS DIALOG ======================================= //
+
+function updateViewResultsDialog(memberId) {
+  const dialog = document.getElementById("viewResultsDialog");
+  const trainingResultsList = dialog.querySelector("#trainingResultsList");
+  const tournamentResultsList = dialog.querySelector("#tournamentResultsList");
+
+  // Filter results by member ID
+  const memberResults = results.filter(
+    (result) => result.memberId === memberId
   );
-  formContainer.style.display = "none";
-});
 
+  // Clear existing results
+  trainingResultsList.innerHTML = "";
+  tournamentResultsList.innerHTML = "";
 
-// ======================TOP 5 =========================== //
+  // Append results to the respective lists
+  memberResults.forEach((result) => {
+    const resultItem = document.createElement("li");
+    resultItem.textContent = `Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}`;
+
+    if (result.type === "tournament") {
+      tournamentResultsList.appendChild(resultItem);
+    } else {
+      trainingResultsList.appendChild(resultItem);
+    }
+  });
+}
+
+// ======================================= top five ======================================= //
 
 // Event listeners for the filter buttons
 document.getElementById("junior-filter-button").addEventListener("click", () => {
@@ -349,7 +286,6 @@ document.getElementById("senior-filter-button").addEventListener("click", () => 
   openTopSwimmersDialog("senior");
 });
 
-// Function to open the dialog and display the top swimmers
 function openTopSwimmersDialog(team) {
   const dialog = document.createElement("div");
   dialog.classList.add("dialog");
@@ -367,15 +303,14 @@ function openTopSwimmersDialog(team) {
 
   const topSwimmersContent = dialog.querySelector("#topSwimmersContent");
   const topSwimmers = getTopSwimmersByTeam(team);
-  const disciplines = Object.keys(topSwimmers);
 
-  disciplines.forEach(discipline => {
+  Object.entries(topSwimmers).forEach(([discipline, swimmers]) => {
     const disciplineElement = document.createElement("div");
-    disciplineElement.innerHTML = `<h3>${discipline.charAt(0).toUpperCase() + discipline.slice(1)}</h3>`;
+    disciplineElement.innerHTML = `<h3>${discipline}</h3>`;
 
-    topSwimmers[discipline].forEach((swimmer, index) => {
+    swimmers.forEach((swimmer, index) => {
       const swimmerElement = document.createElement("div");
-      swimmerElement.innerText = `${index + 1}. ${swimmer.name}: ${secondsToTime(swimmer.bestTime)}`;
+      swimmerElement.innerText = `${index + 1}. ${swimmer.name} time: ${swimmer.resultTime}`;
       disciplineElement.appendChild(swimmerElement);
     });
 
@@ -385,49 +320,34 @@ function openTopSwimmersDialog(team) {
   document.body.appendChild(dialog);
 }
 
-// Transform posts into an array
-let postsArray = Object.values(posts);
-
-// Function to convert time string into seconds for comparison
-function timeToSeconds(time) {
-  let parts = time.split(":");
-  return parts[0] * 60 + parseFloat(parts[1]);
-}
-
-// Function to get the top swimmers by team and discipline
 function getTopSwimmersByTeam(team) {
-  const teamSwimmers = postsArray.filter((post) => post.team === team);
-  const disciplines = ["Backcrawl", "Butterfly", "Breaststroke", "Freestyle"];
+  const filteredResults = results.filter((result) => {
+    const member = posts.find((post) => post.id === result.memberId);
+    return member && member.team === team && result.type === "tournament";
+  });
+
   const topSwimmers = {};
 
-  disciplines.forEach(discipline => {
-    topSwimmers[discipline] = [];
+  filteredResults.forEach((result) => {
+    if (!topSwimmers[result.discipline]) {
+      topSwimmers[result.discipline] = [];
+    }
 
-    teamSwimmers.forEach((swimmer) => {
-      const times = swimmer.trainingResults
-        .filter((result) => result.discipline === discipline)
-        .map((result) => timeToSeconds(result.resultTime));
+    const member = posts.find((post) => post.id === result.memberId);
 
-      const bestTime = times.length > 0 ? Math.min(...times) : Infinity;
+    if (member) {
+      topSwimmers[result.discipline].push({
+        name: member.name,
+        resultTime: result.resultTime,
+      });
+    }
+  });
 
-      if (bestTime !== Infinity) {
-        topSwimmers[discipline].push({
-          name: swimmer.name,
-          discipline: swimmer.discipline,
-          bestTime: swimmer.bestTime,
-        });
-      }
-    });
-
-    topSwimmers[discipline].sort((a, b) => a.bestTime - b.bestTime);
-    topSwimmers[discipline] = topSwimmers[discipline].slice(0, 5);
+  Object.entries(topSwimmers).forEach(([discipline, swimmers]) => {
+    swimmers.sort((a, b) => parseFloat(a.resultTime) - parseFloat(b.resultTime));
+    topSwimmers[discipline] = swimmers.slice(0, 5);
   });
 
   return topSwimmers;
 }
 
-function secondsToTime(seconds) {
-  let minutes = Math.floor(seconds / 60);
-  let secondsLeft = (seconds - minutes * 60).toFixed(2);
-  return minutes + ":" + (secondsLeft < 10 ? "0" : "") + secondsLeft;
-}
