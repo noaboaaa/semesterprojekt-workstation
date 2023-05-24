@@ -413,8 +413,8 @@ function getTopSwimmersByTeam(team) {
       if (bestTime !== Infinity) {
         topSwimmers[discipline].push({
           name: swimmer.name,
-          discipline: discipline,
-          bestTime: bestTime,
+          discipline: swimmer.discipline,
+          bestTime: swimmer.bestTime,
         });
       }
     });
