@@ -18,10 +18,10 @@
       "age": 25,
       "email": "janesmith@example.com",
       "membershipType": "active",
-      "swimmerType": "competetive",
+      "swimmerType": "competitive",
       "team": "senior",
       "annualFee": 1600,
-      "disciplines": ["Freestyle"],
+      "disciplines": ["Freestyle", "Breaststroke"],
       "paymentStatus": "unpaid"
     },
     {
@@ -42,7 +42,7 @@
       "age": 22,
       "email": "emilywhite@example.com",
       "membershipType": "active",
-      "swimmerType": "competetive",
+      "swimmerType": "competitive",
       "team": "senior",
       "annualFee": 1600,
       "disciplines": ["Freestyle", "Butterfly"],
@@ -90,7 +90,7 @@
       "age": 26,
       "email": "ivymiller@example.com",
       "membershipType": "active",
-      "swimmerType": "competetive",
+      "swimmerType": "recreational",
       "team": "senior",
       "annualFee": 1600,
       "disciplines": ["Backcrawl"],
@@ -114,10 +114,10 @@
       "age": 19,
       "email": "michaelwilson@example.com",
       "membershipType": "active",
-      "swimmerType": "competetive",
+      "swimmerType": "competitive",
       "team": "senior",
       "annualFee": 1600,
-      "disciplines": ["Backcrawl", "Butterfly"],
+      "disciplines": ["Freestyle", "Butterfly"],
       "paymentStatus": "unpaid"
     },
     {
@@ -138,7 +138,7 @@
       "age": 31,
       "email": "ryanjohnson@example.com",
       "membershipType": "active",
-      "swimmerType": "competetive",
+      "swimmerType": "competitive",
       "team": "senior",
       "annualFee": 1600,
       "disciplines": ["Backcrawl"],
@@ -150,10 +150,10 @@
       "age": 20,
       "email": "sophiabrown@example.com",
       "membershipType": "active",
-      "swimmerType": "recreational",
+      "swimmerType": "competitive",
       "team": "senior",
       "annualFee": 1600,
-      "disciplines": ["Freestyle"],
+      "disciplines": ["Freestyle","Backcrawl","Breaststroke"],
       "paymentStatus": "unpaid"
     },
     {
@@ -207,7 +207,7 @@
       "id": "r05",
       "memberId": "02",
       "type": "tournament",
-      "discipline": "Butterfly",
+      "discipline": "Freestyle",
       "resultTime": "1:38",
       "date": "2023-05-18"
     },
@@ -223,7 +223,7 @@
       "id": "r07",
       "memberId": "04",
       "type": "tournament",
-      "discipline": "Backcrawl",
+      "discipline": "Freestyle",
       "resultTime": "1:55",
       "date": "2023-04-20"
     },
@@ -238,7 +238,7 @@
     {
       "id": "r09",
       "memberId": "06",
-      "type": "tournament",
+      "type": "training",
       "discipline": "Freestyle",
       "resultTime": "1:30",
       "date": "2023-04-28"
@@ -286,7 +286,7 @@
     {
       "id": "r15",
       "memberId": "10",
-      "type": "tournament",
+      "type": "training",
       "discipline": "Freestyle",
       "resultTime": "1:32",
       "date": "2023-04-30"
@@ -302,7 +302,7 @@
     {
       "id": "r17",
       "memberId": "12",
-      "type": "training",
+      "type": "tournament",
       "discipline": "Backcrawl",
       "resultTime": "1:58",
       "date": "2023-05-01"
@@ -311,17 +311,28 @@
       "id": "r18",
       "memberId": "13",
       "type": "tournament",
-      "discipline": "Butterfly",
+      "discipline": "Breaststroke",
       "resultTime": "1:45",
       "date": "2023-05-12"
     },
-    {
-      "id": "r01",
-      "memberId": "14",
-      "type": "tournament",
-      "discipline": "Freestyle",
-      "resultTime": "1:30",
-      "date": "2023-05-10"
-    }
+     {
+       "id": "r19",
+       "memberId": "13",
+       "type": "tournament",
+       "discipline": "Freestyle",
+       "resultTime": "1:45",
+       "date": "2023-05-12"
+     },
+      {
+       "id": "r20",
+       "memberId": "13",
+       "type": "tournament",
+       "discipline": "Backcrawl",
+       "resultTime": "1:45",
+       "date": "2023-05-12"
+     }
   ]
 }
+
+
+
