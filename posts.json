@@ -1,7 +1,7 @@
 {
   "posts": [
     {
-      "id": "01",
+      "memberId": "01",
       "name": "John Doe",
       "age": 30,
       "email": "johndoe@example.com",
@@ -13,7 +13,7 @@
       "paymentStatus": "paid"
     },
     {
-      "id": "02",
+      "memberId": "02",
       "name": "Jane Smith",
       "age": 25,
       "email": "janesmith@example.com",
@@ -25,7 +25,7 @@
       "paymentStatus": "unpaid"
     },
     {
-      "id": "03",
+      "memberId": "03",
       "name": "Bob Martin",
       "age": 16,
       "email": "bobmartin@example.com",
@@ -37,7 +37,7 @@
       "paymentStatus": "paid"
     },
     {
-      "id": "04",
+      "memberId": "04",
       "name": "Emily White",
       "age": 22,
       "email": "emilywhite@example.com",
@@ -49,7 +49,7 @@
       "paymentStatus": "paid"
     },
     {
-      "id": "05",
+      "memberId": "05",
       "name": "Frank Davis",
       "age": 60,
       "email": "frankdavis@example.com",
@@ -61,7 +61,7 @@
       "paymentStatus": "unpaid"
     },
     {
-      "id": "06",
+      "memberId": "06",
       "name": "Grace Thompson",
       "age": 15,
       "email": "gracethompson@example.com",
@@ -73,7 +73,7 @@
       "paymentStatus": "paid"
     },
     {
-      "id": "07",
+      "memberId": "07",
       "name": "Harry Wilson",
       "age": 17,
       "email": "harrywilson@example.com",
@@ -85,7 +85,7 @@
       "paymentStatus": "paid"
     },
     {
-      "id": "08",
+      "memberId": "08",
       "name": "Ivy Miller",
       "age": 26,
       "email": "ivymiller@example.com",
@@ -97,7 +97,7 @@
       "paymentStatus": "unpaid"
     },
     {
-      "id": "09",
+      "memberId": "09",
       "name": "Sarah Johnson",
       "age": 28,
       "email": "sarahjohnson@example.com",
@@ -109,7 +109,7 @@
       "paymentStatus": "paid"
     },
     {
-      "id": "10",
+      "memberId": "10",
       "name": "Michael Wilson",
       "age": 19,
       "email": "michaelwilson@example.com",
@@ -121,7 +121,7 @@
       "paymentStatus": "unpaid"
     },
     {
-      "id": "11",
+      "memberId": "11",
       "name": "Olivia Wilson",
       "age": 14,
       "email": "oliviawilson@example.com",
@@ -133,7 +133,7 @@
       "paymentStatus": "unpaid"
     },
     {
-      "id": "12",
+      "memberId": "12",
       "name": "Ryan Johnson",
       "age": 31,
       "email": "ryanjohnson@example.com",
@@ -145,7 +145,7 @@
       "paymentStatus": "paid"
     },
     {
-      "id": "13",
+      "memberId": "13",
       "name": "Sophia Brown",
       "age": 20,
       "email": "sophiabrown@example.com",
@@ -157,7 +157,7 @@
       "paymentStatus": "unpaid"
     },
     {
-      "id": "14",
+      "memberId": "14",
       "name": "Sarah Doe",
       "age": 19,
       "email": "sophiabrown@example.com",

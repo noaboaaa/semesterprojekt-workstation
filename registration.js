@@ -41,7 +41,63 @@ document.addEventListener("DOMContentLoaded", (event) => {
   document
     .querySelector("#deleteConfirmationNoButton")
     .addEventListener("click", cancelDeletePost);
+
+
+  function calculateFee() {
+    var age = parseInt(document.getElementById("age").value);
+    var membershipType = document.getElementById("membershipType").value;
+    var fee = 0;
+
+    if (age > 18 && age < 60) {
+      fee = 1600;
+    } else if (age <= 18) {
+      fee = 1000;
+    } else if (age >= 60) {
+      fee = 1200;
+    }
+
+    if (membershipType === "passive") {
+      fee = 500;
+    }
+
+    document.getElementById("fee").value = fee;
+  }
+
+  var ageInput = document.getElementById("age");
+  var membershipTypeSelect = document.getElementById("membershipType");
+  var feeInput = document.createElement("input");
+  feeInput.setAttribute("type", "number");
+  feeInput.setAttribute("id", "fee");
+  feeInput.setAttribute("name", "fee");
+  feeInput.setAttribute("readonly", "true");
+
+  var form = document.getElementById("registration-form");
+  form.appendChild(feeInput);
+
+  ageInput.addEventListener("input", calculateFee);
+  membershipTypeSelect.addEventListener("change", calculateFee);
 });
+
+document.addEventListener("DOMContentLoaded", (event) => {
+  // Other event listeners and code...
+
+ 
+  document.querySelector("#age").addEventListener("input", handleAgeChange);
+});
+
+function handleAgeChange(event) {
+  const ageInput = event.target;
+  const teamSelect = document.querySelector("#team");
+
+  if (ageInput.value !== "") {
+    const age = parseInt(ageInput.value);
+    teamSelect.value = age >= 18 ? "senior" : "junior";
+  } else {
+    teamSelect.value = "";
+  }
+}
+
+
 
 // ====================== INITAPP =========================== //
 

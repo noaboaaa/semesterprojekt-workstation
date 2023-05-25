@@ -70,7 +70,7 @@ async function getPosts() {
 
 // ======================================= GET RESULTS ======================================= //
 
-async function getResults() {
+async function getResults(memberId) {
   try {
     const response = await fetch(`${endpoint}/results.json`);
     const data = await response.json();
@@ -81,6 +81,11 @@ async function getResults() {
         id: "r" + (index + 1).toString().padStart(2, "0"),
         ...result,
       }));
+
+      if (memberId) {
+        results = results.filter((result) => result.memberId === memberId);
+      }
+
       console.log("Transformed results:", results);
     } else {
       results = [];
@@ -92,6 +97,7 @@ async function getResults() {
     console.log("Error fetching results:", error);
   }
 }
+
 
 
 // ======================================= UPDATE POST GRID ======================================= //
@@ -126,7 +132,7 @@ async function updatePostsGrid() {
       });
 
      updateResultsButton.addEventListener("click", () => {
-       openAddResultsForm(post.id); // Pass the post.id as the memberId
+       openAddResultsForm(post.memberId); // Pass the post.id as the memberId
      });
 
       postContainer.appendChild(postElement);
@@ -157,7 +163,7 @@ async function openViewResultsDialog(post) {
   await getResults();
 
   // Get the results for the current post
-  const postResults = results.filter((result) => result.memberId === post.id);
+const postResults = results.filter((result) => result.memberId === post.memberId);
 
   // Separate the results into training and tournament
   const trainingResults = postResults.filter(
@@ -212,43 +218,75 @@ function resetAddResultsForm() {
   const form = document.getElementById("addResultsForm");
   form.reset();
 }
-
-function submitAddResultsForm(event) {
+async function submitAddResultsForm(event) {
   event.preventDefault();
 
-  const formContainer = document.getElementById("addResultsFormContainer");
-  const memberId = formContainer.dataset.memberId;
-
+  // gather data from the form
   const resultType = document.getElementById("resultType").value;
   const discipline = document.getElementById("disciplineInput").value;
   const rankTime = document.getElementById("rankTimeInput").value;
   const date = document.getElementById("dateInput").value;
 
+  const formContainer = document.getElementById("addResultsFormContainer");
+  const memberId = formContainer.dataset.memberId;
+
+  // here we create an object for the new result
+  // here we create an object for the new result
   const newResult = {
     id: generateResultId(),
-    memberId: memberId,
+    memberId: formContainer.dataset.memberId,
     type: resultType,
     discipline: discipline,
     resultTime: rankTime,
     date: date,
+    // other fields here...
   };
 
-  results.push(newResult);
-  console.log("New result successfully added:", newResult);
+  // New fetch request syntax
+  try {
+    const response = await fetch(`${endpoint}/results.json`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newResult),
+    });
 
-  updateViewResultsDialog(memberId);
-  closeAddResultsForm();
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log("Result submitted successfully:", json);
+
+    // Close the form
+    closeAddResultsForm();
+
+    // Update the results
+    await getResults();
+
+    // Update the view results dialog
+    updateViewResultsDialog(memberId);
+  } catch (error) {
+    console.log("There was an error: " + error.message);
+  }
 }
 
 
 function generateResultId() {
-  // Generate a unique result ID
-  return "r" + (results.length + 1).toString().padStart(2, "0");
+  if (results.length > 0) {
+    const lastResult = results[results.length - 1];
+    const lastIdNum = parseInt(lastResult.id.slice(1)); // Assuming the id is in the format "rXX"
+    const newIdNum = lastIdNum + 1;
+    const newId = "r" + newIdNum.toString().padStart(2, "0");
+    return newId;
+  } else {
+    return "r01";
+  }
 }
 
-// ======================================= UPDATE VIEW RESULTS DIALOG ======================================= //
 
-function updateViewResultsDialog(memberId) {
+function updateViewResultsDialog(memberId, post) {
   const dialog = document.getElementById("viewResultsDialog");
   const trainingResultsList = dialog.querySelector("#trainingResultsList");
   const tournamentResultsList = dialog.querySelector("#tournamentResultsList");
@@ -273,7 +311,10 @@ function updateViewResultsDialog(memberId) {
       trainingResultsList.appendChild(resultItem);
     }
   });
+
+  openViewResultsDialog(memberId, post);
 }
+
 
 // ======================================= top five ======================================= //
 
@@ -350,4 +391,67 @@ function getTopSwimmersByTeam(team) {
 
   return topSwimmers;
 }
+
+// ===================== update top five swimmers ========================= //
+
+function updateTopSwimmersDialog(team) {
+  const topSwimmersContent = document.querySelector("#topSwimmersContent");
+  topSwimmersContent.innerHTML = ""; // Clear the existing content
+
+  const topSwimmers = getTopSwimmersByTeam(team);
+
+  Object.entries(topSwimmers).forEach(([discipline, swimmers]) => {
+    const disciplineElement = document.createElement("div");
+    disciplineElement.innerHTML = `<h3>${discipline}</h3>`;
+
+    swimmers.forEach((swimmer, index) => {
+      const swimmerElement = document.createElement("div");
+      swimmerElement.innerText = `${index + 1}. ${swimmer.name} time: ${swimmer.resultTime}`;
+      disciplineElement.appendChild(swimmerElement);
+    });
+
+    topSwimmersContent.appendChild(disciplineElement);
+  });
+}
+
+function submitAddResultsForm(event) {
+  event.preventDefault();
+
+  const formContainer = document.getElementById("addResultsFormContainer");
+  const memberId = formContainer.dataset.memberId;
+
+  const resultType = document.getElementById("resultType").value;
+  const discipline = document.getElementById("disciplineInput").value;
+  const rankTime = document.getElementById("rankTimeInput").value;
+  const date = document.getElementById("dateInput").value;
+
+  const newResult = {
+    id: generateResultId(),
+    memberId: memberId,
+    type: resultType,
+    discipline: discipline,
+    resultTime: rankTime,
+    date: date,
+  };
+
+  results.push(newResult);
+  console.log("New result successfully added:", newResult);
+
+  // Find the post associated with the memberId
+  const post = posts.find((post) => post.id === memberId);
+
+  // Update the view results dialog with the new result
+  updateViewResultsDialog(memberId, post);
+
+  // Update the top swimmers dialog
+  const team = post?.team;
+  if (team) {
+    updateTopSwimmersDialog(team);
+  }
+
+  closeAddResultsForm();
+}
+
+
+
 
