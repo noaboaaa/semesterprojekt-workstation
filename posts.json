@@ -172,7 +172,7 @@
 
   "results": [
     {
-      "id": "r01",
+      "resultId": "r01",
       "memberId": "01",
       "type": "training",
       "discipline": "Freestyle",
@@ -180,7 +180,7 @@
       "date": "2023-05-10"
     },
     {
-      "id": "r02",
+      "resultId": "r02",
       "memberId": "01",
       "type": "tournament",
       "discipline": "Butterfly",
@@ -188,7 +188,7 @@
       "date": "2023-04-15"
     },
     {
-      "id": "r03",
+      "resultId": "r03",
       "memberId": "01",
       "type": "training",
       "discipline": "Backcrawl",
@@ -196,7 +196,7 @@
       "date": "2023-04-20"
     },
     {
-      "id": "r04",
+      "resultId": "r04",
       "memberId": "02",
       "type": "tournament",
       "discipline": "Breaststroke",
@@ -204,7 +204,7 @@
       "date": "2023-04-25"
     },
     {
-      "id": "r05",
+      "resultId": "r05",
       "memberId": "02",
       "type": "tournament",
       "discipline": "Freestyle",
@@ -212,7 +212,7 @@
       "date": "2023-05-18"
     },
     {
-      "id": "r06",
+      "resultId": "r06",
       "memberId": "03",
       "type": "tournament",
       "discipline": "Freestyle",
@@ -220,7 +220,7 @@
       "date": "2023-05-15"
     },
     {
-      "id": "r07",
+      "resultId": "r07",
       "memberId": "04",
       "type": "tournament",
       "discipline": "Freestyle",
@@ -228,7 +228,7 @@
       "date": "2023-04-20"
     },
     {
-      "id": "r08",
+      "resultId": "r08",
       "memberId": "05",
       "type": "tournament",
       "discipline": "Butterfly",
@@ -236,7 +236,7 @@
       "date": "2023-05-10"
     },
     {
-      "id": "r09",
+      "resultId": "r09",
       "memberId": "06",
       "type": "training",
       "discipline": "Freestyle",
@@ -244,7 +244,7 @@
       "date": "2023-04-28"
     },
     {
-      "id": "r10",
+      "resultId": "r10",
       "memberId": "06",
       "type": "tournament",
       "discipline": "Backcrawl",
@@ -252,7 +252,7 @@
       "date": "2023-05-20"
     },
     {
-      "id": "r11",
+      "resultId": "r11",
       "memberId": "07",
       "type": "tournament",
       "discipline": "Breaststroke",
@@ -260,7 +260,7 @@
       "date": "2023-05-15"
     },
     {
-      "id": "r12",
+      "resultId": "r12",
       "memberId": "08",
       "type": "training",
       "discipline": "Backcrawl",
@@ -268,7 +268,7 @@
       "date": "2023-04-29"
     },
     {
-      "id": "r13",
+      "resultId": "r13",
       "memberId": "09",
       "type": "tournament",
       "discipline": "Butterfly",
@@ -276,7 +276,7 @@
       "date": "2023-05-11"
     },
     {
-      "id": "r14",
+      "resultId": "r14",
       "memberId": "09",
       "type": "training",
       "discipline": "Breaststroke",
@@ -284,7 +284,7 @@
       "date": "2023-05-22"
     },
     {
-      "id": "r15",
+      "resultId": "r15",
       "memberId": "10",
       "type": "training",
       "discipline": "Freestyle",
@@ -292,7 +292,7 @@
       "date": "2023-04-30"
     },
     {
-      "id": "r16",
+      "resultId": "r16",
       "memberId": "11",
       "type": "tournament",
       "discipline": "Breaststroke",
@@ -300,7 +300,7 @@
       "date": "2023-05-16"
     },
     {
-      "id": "r17",
+      "resultId": "r17",
       "memberId": "12",
       "type": "tournament",
       "discipline": "Backcrawl",
@@ -308,7 +308,7 @@
       "date": "2023-05-01"
     },
     {
-      "id": "r18",
+      "resultId": "r18",
       "memberId": "13",
       "type": "tournament",
       "discipline": "Breaststroke",
@@ -316,7 +316,7 @@
       "date": "2023-05-12"
     },
      {
-       "id": "r19",
+       "resultId": "r19",
        "memberId": "13",
        "type": "tournament",
        "discipline": "Freestyle",
@@ -324,7 +324,7 @@
        "date": "2023-05-12"
      },
       {
-       "id": "r20",
+       "resultId": "r20",
        "memberId": "13",
        "type": "tournament",
        "discipline": "Backcrawl",

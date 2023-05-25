@@ -9,34 +9,108 @@ let results = [];
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOMContentLoaded event fired");
   initApp();
-  // Event listener for the dynamically generated button
+
+  // Event listener for the dynamically generated "update-results" button
   const postContainer = document.getElementById("post-container");
   postContainer.addEventListener("click", function (event) {
     // Check if the clicked element is the dynamically generated button
-    if (event.target && event.target.id === "addResultsButton") {
-      openAddResultsForm();
+    if (event.target && event.target.classList.contains("update-results")) {
+      const postElement = event.target.closest(".post");
+      const memberId = postElement.dataset.memberId;
+      openUpdateResultsForm(memberId);
     }
   });
-});
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  const closeAddResultsButton = document.getElementById(
-    "closeAddResultsButton"
-  );
-  const submitAddResultsButton = document.getElementById(
-    "submitAddResultsButton"
-  );
+  // Event listener for the update results form
+  document
+    .querySelector("#updateResultsForm form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+      const type = document.querySelector("#updateType").value;
+      const discipline = document.querySelector("#updateDiscipline").value;
+      const resultTime = document.querySelector("#updateResultTime").value;
+      const date = document.querySelector("#updateDate").value;
 
-  closeAddResultsButton.addEventListener("click", closeAddResultsForm);
-  submitAddResultsButton.addEventListener("click", submitAddResultsForm);
+      const result = {
+        type,
+        discipline,
+        resultTime,
+        date,
+      };
+
+      updateResult(result);
+    });
+
+  // Event listener for closing the update results form
+  document
+    .querySelector("#closeUpdateResultsForm")
+    .addEventListener("click", function () {
+      document.querySelector("#updateResultsForm").style.display = "none";
+    });
 });
 
 // ====================== INITAPP =========================== //
 
 async function initApp() {
   console.log("App is running");
-  await updatePostsGrid();
-  await getResults();
+  await Promise.all([getPosts(), getResults()]);
+  updatePostsGrid();
+}
+
+// ======================================= UPDATE POST GRID ======================================= //
+
+async function updatePostsGrid() {
+  try {
+    posts = await getPosts(); // Assign the fetched posts to the global 'posts' variable
+    console.log("Fetched posts:", posts);
+
+    const postContainer = document.querySelector("#post-container");
+    postContainer.innerHTML = "";
+
+    // Fetch and log the results
+    await getResults();
+    console.log("Fetched results:", results);
+
+    posts.forEach((post, index) => {
+      console.log("Updating UI for post:", post);
+
+      const postElement = document.createElement("div");
+      postElement.classList.add("post");
+
+      // Get the results for the current post
+      const postResults = results.filter(
+        (result) => result.memberId === post.memberId
+      );
+
+      // Build results HTML
+      let resultsHTML = "";
+      postResults.forEach((result) => {
+        resultsHTML += `<p>${result.type} Result - Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date} <button class="update-result" data-result-id="${result.id}">Update</button></p>`;
+      });
+
+      postElement.innerHTML = `
+        <h2>${post.name}</h2>
+        <p>Age: ${post.age}</p>
+        <p>Team: ${post.team}</p>
+        ${resultsHTML}
+      `;
+
+      const updateResultButtons =
+        postElement.querySelectorAll(".update-result");
+      updateResultButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const resultId = button.getAttribute("data-result-id");
+          openUpdateResultsForm(resultId);
+        });
+      });
+
+      postContainer.appendChild(postElement);
+    });
+
+    console.log("Updated UI:", postContainer.innerHTML);
+  } catch (error) {
+    console.error("Error updating posts grid:", error);
+  }
 }
 
 // ======================================= GET POSTS ======================================= //
@@ -70,262 +144,207 @@ async function getPosts() {
 
 // ======================================= GET RESULTS ======================================= //
 
-async function getResults(memberId) {
+async function getResults() {
   try {
     const response = await fetch(`${endpoint}/results.json`);
     const data = await response.json();
-    console.log("Fetched results in getResults:", data);
-
-    if (data && Array.isArray(data)) {
-      results = data.map((result, index) => ({
-        id: "r" + (index + 1).toString().padStart(2, "0"),
-        ...result,
-      }));
-
-      if (memberId) {
-        results = results.filter((result) => result.memberId === memberId);
-      }
-
-      console.log("Transformed results:", results);
-    } else {
-      results = [];
-      console.log("No results found in the response.");
-    }
-
-    return results;
+    results = Object.entries(data).map(([id, result]) => ({
+      id,
+      ...result,
+    }));
+    console.log("Results:", results);
   } catch (error) {
-    console.log("Error fetching results:", error);
+    console.error("Error fetching results:", error);
   }
 }
 
+// ======================================= UPDATE RESULTS FORM ======================================= //
 
+document
+  .querySelector("#updateResultsForm form")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+    const type = document.querySelector("#updateType").value;
+    const discipline = document.querySelector("#updateDiscipline").value;
+    const resultTime = document.querySelector("#updateResultTime").value;
+    const date = document.querySelector("#updateDate").value;
 
-// ======================================= UPDATE POST GRID ======================================= //
+    const result = {
+      type,
+      discipline,
+      resultTime,
+      date,
+    };
 
-async function updatePostsGrid() {
-  try {
-    posts = await getPosts(); // Assign the fetched posts to the global 'posts' variable
-    console.log("Fetched posts:", posts);
-
-    const postContainer = document.querySelector("#post-container");
-    postContainer.innerHTML = "";
-
-    posts.forEach((post, index) => {
-      console.log("Updating UI for post:", post);
-
-      const postElement = document.createElement("div");
-      postElement.classList.add("post");
-
-      postElement.innerHTML = `
-        <h2>${post.name}</h2>
-        <p>Age: ${post.age}</p>
-        <p>Team: ${post.team}</p>
-        <button class="view-results">View Results</button>
-        <button class="update-results">Add New Results</button>
-      `;
-
-      const viewResultsButton = postElement.querySelector(".view-results");
-      const updateResultsButton = postElement.querySelector(".update-results");
-
-      viewResultsButton.addEventListener("click", () => {
-        openViewResultsDialog(post);
-      });
-
-     updateResultsButton.addEventListener("click", () => {
-       openAddResultsForm(post.memberId); // Pass the post.id as the memberId
-     });
-
-      postContainer.appendChild(postElement);
-    });
-
-    console.log("Updated UI:", postContainer.innerHTML);
-  } catch (error) {
-    console.error("Error updating posts grid:", error);
-  }
-}
-
-
-
-// ======================================= VIEW RESULTS DIALOG ======================================= //
-
-async function openViewResultsDialog(post) {
-  console.log("Opening View Results dialog for: ", post);
-
-  const dialog = document.querySelector("#viewResultsDialog");
-  const trainingResultsList = document.querySelector("#trainingResultsList");
-  const tournamentResultsList = document.querySelector("#tournamentResultsList");
-
-  // Clear the existing content
-  trainingResultsList.innerHTML = "";
-  tournamentResultsList.innerHTML = "";
-
-  // Fetch the latest results data
-  await getResults();
-
-  // Get the results for the current post
-const postResults = results.filter((result) => result.memberId === post.memberId);
-
-  // Separate the results into training and tournament
-  const trainingResults = postResults.filter(
-    (result) => result.type === "training"
-  );
-  const tournamentResults = postResults.filter(
-    (result) => result.type === "tournament"
-  );
-
-  // Populate the training results
-  trainingResults.forEach((result) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = `Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}`;
-    trainingResultsList.appendChild(listItem);
+    updateResult(result);
   });
 
-  // Populate the tournament results
-  tournamentResults.forEach((result) => {
-    const listItem = document.createElement("li");
-    listItem.textContent = `Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}`;
-    tournamentResultsList.appendChild(listItem);
-  });
-
-  dialog.classList.remove("hidden");
-  dialog.querySelector("h2").textContent = `Results for ${post.name}`;
-
-  // Close dialog event listener
-  const closeDialogButton = dialog.querySelector("#closeViewResultsButton");
-  closeDialogButton.addEventListener("click", () => {
-    dialog.classList.add("hidden");
-  });
-}
-
-
-
-// ======================================= ADD NEW RESULTS FORM ======================================= //
-
-function openAddResultsForm(memberId) {
-  const formContainer = document.getElementById("addResultsFormContainer");
-  formContainer.classList.remove("hidden");
-  formContainer.dataset.memberId = memberId;
-}
-
-
-function closeAddResultsForm() {
-  const formContainer = document.getElementById("addResultsFormContainer");
-  formContainer.classList.add("hidden");
-  resetAddResultsForm();
-}
-
-function resetAddResultsForm() {
-  const form = document.getElementById("addResultsForm");
-  form.reset();
-}
-async function submitAddResultsForm(event) {
-  event.preventDefault();
-
-  // gather data from the form
-  const resultType = document.getElementById("resultType").value;
-  const discipline = document.getElementById("disciplineInput").value;
-  const rankTime = document.getElementById("rankTimeInput").value;
-  const date = document.getElementById("dateInput").value;
-
-  const formContainer = document.getElementById("addResultsFormContainer");
-  const memberId = formContainer.dataset.memberId;
-
-  // here we create an object for the new result
-  // here we create an object for the new result
-  const newResult = {
-    id: generateResultId(),
-    memberId: formContainer.dataset.memberId,
-    type: resultType,
-    discipline: discipline,
-    resultTime: rankTime,
-    date: date,
-    // other fields here...
-  };
-
-  // New fetch request syntax
-  try {
-    const response = await fetch(`${endpoint}/results.json`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newResult),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    console.log("Result submitted successfully:", json);
-
-    // Close the form
-    closeAddResultsForm();
-
-    // Update the results
-    await getResults();
-
-    // Update the view results dialog
-    updateViewResultsDialog(memberId);
-  } catch (error) {
-    console.log("There was an error: " + error.message);
-  }
-}
-
-
-function generateResultId() {
-  if (results.length > 0) {
-    const lastResult = results[results.length - 1];
-    const lastIdNum = parseInt(lastResult.id.slice(1)); // Assuming the id is in the format "rXX"
-    const newIdNum = lastIdNum + 1;
-    const newId = "r" + newIdNum.toString().padStart(2, "0");
-    return newId;
-  } else {
-    return "r01";
-  }
-}
-
-
-function updateViewResultsDialog(memberId, post) {
-  const dialog = document.getElementById("viewResultsDialog");
-  const trainingResultsList = dialog.querySelector("#trainingResultsList");
-  const tournamentResultsList = dialog.querySelector("#tournamentResultsList");
-
-  // Filter results by member ID
+// ======================================= OPEN UPDATE RESULTS FORM ======================================= //
+function openUpdateResultsForm(memberId) {
+  // Filter the results based on the member ID
   const memberResults = results.filter(
     (result) => result.memberId === memberId
   );
 
-  // Clear existing results
-  trainingResultsList.innerHTML = "";
-  tournamentResultsList.innerHTML = "";
-
-  // Append results to the respective lists
+  // Iterate over the member's results and display them in the form
   memberResults.forEach((result) => {
-    const resultItem = document.createElement("li");
-    resultItem.textContent = `Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}`;
-
-    if (result.type === "tournament") {
-      tournamentResultsList.appendChild(resultItem);
-    } else {
-      trainingResultsList.appendChild(resultItem);
-    }
+    // Load the result data into the form
+    const resultContainer = document.createElement("div");
+    resultContainer.innerHTML = `
+      <p>${result.type} Result - Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}</p>
+      <button class="update-result" data-member-id="${result.memberId}" data-result-id="${result.id}">Update</button>
+    `;
+    document.querySelector("#updateResultsForm").appendChild(resultContainer);
   });
 
-  openViewResultsDialog(memberId, post);
+  // Show the form
+  document.querySelector("#updateResultsForm").style.display = "block";
 }
 
+
+// ======================================= UPDATE RESULTS ======================================= //
+
+async function updateResult(memberId, resultId, result) {
+  try {
+    const response = await fetch(`${endpoint}/results/${resultId}.json`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(result),
+    });
+
+    if (!response.ok) {
+      throw new Error("HTTP error " + response.status);
+    }
+
+    // Update the local results array and posts grid
+    const index = results.findIndex((result) => result.memberId === memberId && result.id === resultId);
+    results[index] = result;
+    updatePostsGrid();
+  } catch (error) {
+    console.error("Error updating result:", error);
+  }
+}
+
+// ======================================= CLOSE UPDATE RESULTS FORM ======================================= //
+
+document
+  .querySelector("#closeUpdateResultsForm")
+  .addEventListener("click", function () {
+    document.querySelector("#updateResultsForm").style.display = "none";
+  });
+
+// ======================================= UPDATE UI ======================================= //
+
+posts.forEach((post, index) => {
+  // ...
+  // Get the results for the current post
+  const postResults = results.filter(
+    (result) => result.memberId === post.memberId
+  );
+
+  // ...
+  postResults.forEach((result) => {
+    // Add an "Update Result" button for each result
+    resultsHTML += `<button class="update-results" data-member-id="${post.memberId}" data-result-id="${result.id}">Update Result</button>`;
+  });
+
+  // ...
+
+  const updateResultsButton = postElement.querySelector(".update-results");
+  updateResultsButton.addEventListener("click", () => {
+    // Retrieve the member ID and result ID from the button's data attributes
+    const memberId = updateResultsButton.dataset.memberId;
+    const resultId = updateResultsButton.dataset.resultId;
+    openUpdateResultsForm(memberId, resultId);
+  });
+
+  // ...
+});
+
+
+/*
+function openAddResultsForm(memberId) {
+  const form = document.querySelector("#addResultsForm");
+  form.dataset.postId = memberId; // Set the post id on the form to use when submitting
+  document.querySelector("#addResultsFormContainer").classList.remove("hidden");
+}
+
+function closeAddResultsForm() {
+  document.querySelector("#addResultsFormContainer").classList.add("hidden");
+}
+
+async function submitAddResultsForm(event) {
+  event.preventDefault();
+
+  const form = document.querySelector("#addResultsForm");
+  const memberId = form.dataset.postId;
+  const type = document.querySelector("#resultType").value;
+  const discipline = document.querySelector("#disciplineInput").value;
+  const rankTime = document.querySelector("#rankTimeInput").value;
+  const date = document.querySelector("#dateInput").value;
+
+  // Construct the new result object
+  const newResult = {
+    memberId,
+    type,
+    discipline,
+    rankTime,
+    date,
+  };
+
+  try {
+    // Add the new result to the Firebase database
+    const response = await fetch(`${endpoint}/results.json`, {
+      method: "POST",
+      body: JSON.stringify(newResult),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // Check if the request was successful
+    if (!response.ok) {
+      throw new Error("HTTP error " + response.status);
+    }
+
+    // Get the id of the new result from the response
+    const data = await response.json();
+    const newResultId = data.name;
+
+    // Add the id to the new result object and add it to the 'results' array
+    newResult.id = newResultId;
+    results.push(newResult);
+
+    console.log("New result added:", newResult);
+
+    // Close the form
+    closeAddResultsForm();
+
+    // Update the posts grid to reflect the new result
+    updatePostsGrid();
+  } catch (error) {
+    console.error("Error adding new result:", error);
+  }
+}
 
 // ======================================= top five ======================================= //
 
 // Event listeners for the filter buttons
-document.getElementById("junior-filter-button").addEventListener("click", () => {
-  openTopSwimmersDialog("junior");
-});
 
-document.getElementById("senior-filter-button").addEventListener("click", () => {
-  openTopSwimmersDialog("senior");
-});
+/*
+document
+  .getElementById("junior-filter-button")
+  .addEventListener("click", () => {
+    openTopSwimmersDialog("junior");
+  });
+
+document
+  .getElementById("senior-filter-button")
+  .addEventListener("click", () => {
+    openTopSwimmersDialog("senior");
+  });
 
 function openTopSwimmersDialog(team) {
   const dialog = document.createElement("div");
@@ -337,7 +356,9 @@ function openTopSwimmersDialog(team) {
     <button id="closeTopSwimmersButton">Close</button>
   `;
 
-  const closeTopSwimmersButton = dialog.querySelector("#closeTopSwimmersButton");
+  const closeTopSwimmersButton = dialog.querySelector(
+    "#closeTopSwimmersButton"
+  );
   closeTopSwimmersButton.addEventListener("click", () => {
     dialog.remove();
   });
@@ -351,7 +372,9 @@ function openTopSwimmersDialog(team) {
 
     swimmers.forEach((swimmer, index) => {
       const swimmerElement = document.createElement("div");
-      swimmerElement.innerText = `${index + 1}. ${swimmer.name} time: ${swimmer.resultTime}`;
+      swimmerElement.innerText = `${index + 1}. ${swimmer.name} time: ${
+        swimmer.resultTime
+      }`;
       disciplineElement.appendChild(swimmerElement);
     });
 
@@ -385,7 +408,9 @@ function getTopSwimmersByTeam(team) {
   });
 
   Object.entries(topSwimmers).forEach(([discipline, swimmers]) => {
-    swimmers.sort((a, b) => parseFloat(a.resultTime) - parseFloat(b.resultTime));
+    swimmers.sort(
+      (a, b) => parseFloat(a.resultTime) - parseFloat(b.resultTime)
+    );
     topSwimmers[discipline] = swimmers.slice(0, 5);
   });
 
@@ -406,7 +431,9 @@ function updateTopSwimmersDialog(team) {
 
     swimmers.forEach((swimmer, index) => {
       const swimmerElement = document.createElement("div");
-      swimmerElement.innerText = `${index + 1}. ${swimmer.name} time: ${swimmer.resultTime}`;
+      swimmerElement.innerText = `${index + 1}. ${swimmer.name} time: ${
+        swimmer.resultTime
+      }`;
       disciplineElement.appendChild(swimmerElement);
     });
 
@@ -438,7 +465,7 @@ function submitAddResultsForm(event) {
   console.log("New result successfully added:", newResult);
 
   // Find the post associated with the memberId
-  const post = posts.find((post) => post.id === memberId);
+  const post = posts.find((post) => post.memberId === memberId);
 
   // Update the view results dialog with the new result
   updateViewResultsDialog(memberId, post);
@@ -451,7 +478,4 @@ function submitAddResultsForm(event) {
 
   closeAddResultsForm();
 }
-
-
-
-
+*/

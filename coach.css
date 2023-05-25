@@ -243,11 +243,11 @@ nav ul li a {
 
 /* ----------- form -----------------*/
 
-.form .hidden{
+#updateResultsForm .hidden{
   display: none;
 }
 
-.form {
+#updateResultsForm {
   position: fixed; /* Positions the element relative to the viewport */
   top: 50%; /* Center vertically */
   left: 50%; /* Center horizontally */
@@ -264,7 +264,7 @@ nav ul li a {
   z-index: 9999;
 }
 
-.form .title{
+#updateResultsForm.title{
   margin: 0 0 30px;
   padding: 0;
   text-align: center;
@@ -273,12 +273,12 @@ nav ul li a {
   letter-spacing: 1px;
 }
 
-.form .input-box {
+#updateResultsForm .input-box {
   position: relative;
 }
 
-.form .input-box input,
-.form .input-box select {
+#updateResultsForm .input-box input,
+#updateResultsForm .input-box select {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
@@ -290,7 +290,7 @@ nav ul li a {
   background: transparent;
 }
 
-.form .input-box span {
+#updateResultsForm .input-box span {
   font-size: 16px;
   color: #fff;
 }

@@ -66,46 +66,21 @@
         </div>
 
         <!-----------------------add new results form -------------------------------->
-        <div id="addResultsFormContainer" class="form hidden">
-            <div class="container">
-                <div class="title">Add New Results</div>
-                <div class="content">
-                    <form id="addResultsForm" data-post-id="">
-                        <div class="input-box">
-                            <span class="details">Type</span>
-                            <select id="resultType" name="resultType" required>
-                                <option value="">Select...</option>
-                                <option value="tournament">Tournament</option>
-                                <option value="training">Training</option>
-                            </select>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Discipline</span>
-                            <select id="disciplineInput" name="discipline" required>
-                                <option value="">Select...</option>
-                                <option value="butterfly">Butterfly</option>
-                                <option value="backcrawl">Backcrawl</option>
-                                <option value="freestyle">Freestyle</option>
-                                <option value="breaststroke">Breaststroke</option>
-                            </select>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Time</span>
-                            <input type="text" id="rankTimeInput" name="rankTime" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Date</span>
-                            <input type="date" id="dateInput" name="date" required>
-                        </div>
-                       <div class="button">
-                        <input type="submit" id="submitAddResultsButton" class="form-button" value="Add Results">
-                        <input type="reset" class="form-button" value="Reset">
-                        <button id="closeAddResultsButton" type="button" class="form-button">Close</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <div id="updateResultsForm" style="display: none;">
+  <h2>Update Result</h2>
+  <form>
+    <select id="updateType">
+      <option value="training">Training</option>
+      <option value="tournament">Tournament</option>
+    </select>
+    <input type="text" id="updateDiscipline" placeholder="Discipline">
+    <input type="text" id="updateResultTime" placeholder="Result Time">
+    <input type="date" id="updateDate">
+    <button type="submit">Update Result</button>
+    <button type="button" id="closeUpdateResultsForm">Close</button>
+  </form>
+</div>
+
     </main>
     <script src="coach.js"></script>
 </body>
