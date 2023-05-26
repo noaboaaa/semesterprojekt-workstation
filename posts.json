@@ -33,7 +33,7 @@
       "swimmerType": "competitive",
       "team": "junior",
       "annualFee": 1000,
-      "disciplines": ["Butterfly"],
+      "disciplines": ["Butterfly","Freestyle"],
       "paymentStatus": "paid"
     },
     {
@@ -57,7 +57,7 @@
       "swimmerType": "competitive",
       "team": "senior",
       "annualFee": 1200,
-      "disciplines": ["Backcrawl", "Breaststroke"],
+      "disciplines": ["Backcrawl", "Freestyle","Butterfly"],
       "paymentStatus": "unpaid"
     },
     {
@@ -65,11 +65,11 @@
       "name": "Grace Thompson",
       "age": 15,
       "email": "gracethompson@example.com",
-      "membershipType": "passive",
-      "swimmerType": "recreational",
+      "membershipType": "active",
+      "swimmerType": "competitive",
       "team": "junior",
-      "annualFee": 500,
-      "disciplines": [],
+      "annualFee": 1000,
+      "disciplines": ["Freestyle", "Butterfly"],
       "paymentStatus": "paid"
     },
     {
@@ -81,19 +81,19 @@
       "swimmerType": "competitive",
       "team": "junior",
       "annualFee": 1000,
-      "disciplines": ["Butterfly", "Freestyle"],
+      "disciplines": ["Butterfly", "Freestyle", "Breaststroke"],
       "paymentStatus": "paid"
     },
     {
       "memberId": "08",
       "name": "Ivy Miller",
-      "age": 17,
+      "age": 14,
       "email": "ivymiller@example.com",
       "membershipType": "active",
       "swimmerType": "competitive",
       "team": "junior",
-      "annualFee": 1600,
-      "disciplines": ["Backcrawl"],
+      "annualFee": 1000,
+      "disciplines": ["Backcrawl", "Butterfly", "Freestyle"],
       "paymentStatus": "unpaid"
     },
     {
@@ -105,7 +105,7 @@
       "swimmerType": "competitive",
       "team": "junior",
       "annualFee": 1000,
-      "disciplines": ["Breaststroke"],
+      "disciplines": ["Breaststroke","Freestyle"],
       "paymentStatus": "paid"
     },
     {
@@ -129,7 +129,7 @@
       "swimmerType": "competitive",
       "team": "junior",
       "annualFee": 1000,
-      "disciplines": ["Backcrawl", "Breaststroke"],
+      "disciplines": ["Backcrawl", "Breaststroke","Butterfly"],
       "paymentStatus": "unpaid"
     },
     {
@@ -174,8 +174,8 @@
     {
       "resultId": "r01",
       "memberId": "01",
-      "type": "training",
-      "discipline": "Freestyle",
+      "type": "tournament",
+      "discipline": "Backcrawl",
       "resultTime": "1:30",
       "date": "2023-05-10"
     },
@@ -189,9 +189,9 @@
     },
     {
       "resultId": "r03",
-      "memberId": "01",
-      "type": "training",
-      "discipline": "Backcrawl",
+      "memberId": "03",
+      "type": "tournament",
+      "discipline": "Butterfly",
       "resultTime": "1:35",
       "date": "2023-04-20"
     },
@@ -238,7 +238,7 @@
     {
       "resultId": "r09",
       "memberId": "06",
-      "type": "training",
+      "type": "tournament",
       "discipline": "Freestyle",
       "resultTime": "1:30",
       "date": "2023-04-28"
@@ -262,7 +262,7 @@
     {
       "resultId": "r12",
       "memberId": "08",
-      "type": "training",
+      "type": "tournament",
       "discipline": "Backcrawl",
       "resultTime": "1:50",
       "date": "2023-04-29"
@@ -286,7 +286,7 @@
     {
       "resultId": "r15",
       "memberId": "10",
-      "type": "training",
+      "type": "tournament",
       "discipline": "Freestyle",
       "resultTime": "1:32",
       "date": "2023-04-30"
@@ -315,30 +315,142 @@
       "resultTime": "1:45",
       "date": "2023-05-12"
     },
-     {
-       "resultId": "r19",
-       "memberId": "14",
-       "type": "tournament",
-       "discipline": "Freestyle",
-       "resultTime": "1:45",
-       "date": "2023-05-12"
-     },
-      {
-       "resultId": "r20",
-       "memberId": "13",
-       "type": "tournament",
-       "discipline": "Backcrawl",
-       "resultTime": "1:45",
-       "date": "2023-05-12"
-     },
-     {
-       "resultId": "r21",
-       "memberId": "14",
-       "type": "tournament",
-       "discipline": "Backcrawl",
-       "resultTime": "1:45",
-       "date": "2023-05-12"
-     }
+    {
+      "resultId": "r19",
+      "memberId": "14",
+      "type": "tournament",
+      "discipline": "Freestyle",
+      "resultTime": "1:45",
+      "date": "2023-05-12"
+    },
+    {
+      "resultId": "r20",
+      "memberId": "13",
+      "type": "tournament",
+      "discipline": "Backcrawl",
+      "resultTime": "1:45",
+      "date": "2023-05-12"
+    },
+    {
+      "resultId": "r21",
+      "memberId": "14",
+      "type": "tournament",
+      "discipline": "Backcrawl",
+      "resultTime": "1:45",
+      "date": "2023-05-12"
+    },
+    {
+      "resultId": "r22",
+      "memberId": "04",
+      "type": "tournament",
+      "discipline": "Butterfly",
+      "resultTime": "1:01",
+      "date": "2023-05-12"
+    },
+    {
+      "resultId": "r23",
+      "memberId": "05",
+      "type": "tournament",
+      "discipline": "Backcrawl",
+      "resultTime": "1:04",
+      "date": "2023-03-10"
+    },
+    {
+      "resultId": "r24",
+      "memberId": "05",
+      "type": "tournament",
+      "discipline": "Freestyle",
+      "resultTime": "1:38",
+      "date": "2023-01-12"
+    },
+    {
+      "resultId": "r25",
+      "memberId": "07",
+      "type": "tournament",
+      "discipline": "Freestyle",
+      "resultTime": "1:38",
+      "date": "2023-01-12"
+    },
+    {
+      "resultId": "r26",
+      "memberId": "07",
+      "type": "tournament",
+      "discipline": "Butterfly",
+      "resultTime": "1:01",
+      "date": "2023-05-12"
+    },
+    {
+      "resultId": "r27",
+      "memberId": "08",
+      "type": "tournament",
+      "discipline": "Freestyle",
+      "resultTime": "1:38",
+      "date": "2023-04-12"
+    },
+    {
+      "resultId": "r28",
+      "memberId": "08",
+      "type": "tournament",
+      "discipline": "Butterfly",
+      "resultTime": "1:01",
+      "date": "2023-02-06"
+    },
+    {
+      "resultId": "r29",
+      "memberId": "10",
+      "type": "tournament",
+      "discipline": "Butterfly",
+      "resultTime": "1:32",
+      "date": "2023-04-30"
+    },
+    {
+      "resultId": "r30",
+      "memberId": "11",
+      "type": "tournament",
+      "discipline": "Backcrawl",
+      "resultTime": "2:02",
+      "date": "2023-05-16"
+    },
+    {
+      "resultId": "r31",
+      "memberId": "11",
+      "type": "tournament",
+      "discipline": "Butterfly",
+      "resultTime": "1:02",
+      "date": "2023-02-16"
+    },
+    {
+      "resultId": "r32",
+      "memberId": "13",
+      "type": "training",
+      "discipline": "Backcrawl",
+      "resultTime": "1:45",
+      "date": "2023-05-12"
+    },
+    {
+      "resultId": "r33",
+      "memberId": "13",
+      "type": "tournament",
+      "discipline": "Butterfly",
+      "resultTime": "1:07",
+      "date": "2023-05-12"
+    },
+    {
+      "resultId": "r34",
+      "memberId": "10",
+      "type": "training",
+      "discipline": "Butterfly",
+      "resultTime": "1:32",
+      "date": "2023-04-30"
+    },
+    {
+      "resultId": "r35",
+      "memberId": "07",
+      "type": "training",
+      "discipline": "Butterfly",
+      "resultTime": "1:01",
+      "date": "2023-05-12"
+    }
   ]
 }
 
