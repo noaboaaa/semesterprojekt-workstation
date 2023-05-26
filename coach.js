@@ -17,11 +17,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     if (event.target && event.target.classList.contains("update-results")) {
       const postElement = event.target.closest(".post");
       const memberId = postElement.dataset.memberId;
-      openUpdateResultsForm(memberId);
+      const resultId = event.target.dataset.resultId;
+      openUpdateResultsForm(memberId, resultId);
     }
   });
 
-  // Event listener for the update results form
+  // Event listener for the form submission
   document
     .querySelector("#updateResultsForm form")
     .addEventListener("submit", function (event) {
@@ -31,15 +32,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
       const resultTime = document.querySelector("#updateResultTime").value;
       const date = document.querySelector("#updateDate").value;
 
+      const memberId = this.dataset.memberId;
+      const resultId = this.dataset.resultId;
+
       const result = {
+        id: resultId,
+        memberId: memberId,
         type,
         discipline,
         resultTime,
         date,
       };
 
-      updateResult(result);
-    });
+      updateResult(memberId, resultId, result);
+
+         // close the form after submission
+    document.querySelector("#updateResultsForm").style.display = "none";
+  });
+
 
   // Event listener for closing the update results form
   document
@@ -53,7 +63,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 async function initApp() {
   console.log("App is running");
-  await Promise.all([getPosts(), getResults()]);
+  posts = await getPosts();
+  console.log("Posts after getPosts():", posts); // add this line
+  await getResults();
+  console.log("Posts before updatePostsGrid():", posts); // add this line
   updatePostsGrid();
 }
 
@@ -61,57 +74,45 @@ async function initApp() {
 
 async function updatePostsGrid() {
   try {
-    posts = await getPosts(); // Assign the fetched posts to the global 'posts' variable
     console.log("Fetched posts:", posts);
-
     const postContainer = document.querySelector("#post-container");
     postContainer.innerHTML = "";
-
-    // Fetch and log the results
     await getResults();
     console.log("Fetched results:", results);
 
-    posts.forEach((post, index) => {
-      console.log("Updating UI for post:", post);
-
-      const postElement = document.createElement("div");
-      postElement.classList.add("post");
-
-      // Get the results for the current post
+    posts.forEach((post) => {
+      let resultsHTML = "";
       const postResults = results.filter(
         (result) => result.memberId === post.memberId
       );
 
-      // Build results HTML
-      let resultsHTML = "";
       postResults.forEach((result) => {
-        resultsHTML += `<p>${result.type} Result - Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date} <button class="update-result" data-result-id="${result.id}">Update</button></p>`;
+        // Add an "Update Result" button for each result
+resultsHTML += `
+<div class="result">
+  <p>Type: ${result.type}</p>
+  <p>Discipline: ${result.discipline}</p>
+  <p>Result Time: ${result.resultTime}</p>
+  <p>Date: ${result.date}</p>
+  <button class="update-results" data-member-id="${post.memberId}" data-result-id="${result.id}">Update Result</button>
+</div>`;
       });
 
-      postElement.innerHTML = `
-        <h2>${post.name}</h2>
-        <p>Age: ${post.age}</p>
-        <p>Team: ${post.team}</p>
-        ${resultsHTML}
-      `;
+      const postHTML = `
+        <div class="post" data-member-id="${post.memberId}">
+          <h2>${post.name}</h2>
+          <p>Age: ${post.age}</p>
+          <p>Team: ${post.team}</p>
+          ${resultsHTML}
+        </div>`;
 
-      const updateResultButtons =
-        postElement.querySelectorAll(".update-result");
-      updateResultButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const resultId = button.getAttribute("data-result-id");
-          openUpdateResultsForm(resultId);
-        });
-      });
-
-      postContainer.appendChild(postElement);
+      postContainer.innerHTML += postHTML;
     });
-
-    console.log("Updated UI:", postContainer.innerHTML);
   } catch (error) {
     console.error("Error updating posts grid:", error);
   }
 }
+
 
 // ======================================= GET POSTS ======================================= //
 
@@ -153,52 +154,34 @@ async function getResults() {
       ...result,
     }));
     console.log("Results:", results);
+
+    return results; // add this line
   } catch (error) {
     console.error("Error fetching results:", error);
+    return [];
   }
 }
 
-// ======================================= UPDATE RESULTS FORM ======================================= //
-
-document
-  .querySelector("#updateResultsForm form")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    const type = document.querySelector("#updateType").value;
-    const discipline = document.querySelector("#updateDiscipline").value;
-    const resultTime = document.querySelector("#updateResultTime").value;
-    const date = document.querySelector("#updateDate").value;
-
-    const result = {
-      type,
-      discipline,
-      resultTime,
-      date,
-    };
-
-    updateResult(result);
-  });
-
 // ======================================= OPEN UPDATE RESULTS FORM ======================================= //
-function openUpdateResultsForm(memberId) {
-  // Filter the results based on the member ID
-  const memberResults = results.filter(
-    (result) => result.memberId === memberId
+function openUpdateResultsForm(memberId, resultId) {
+  const memberResult = results.find(
+    (result) => result.memberId === memberId && result.id === resultId
   );
 
-  // Iterate over the member's results and display them in the form
-  memberResults.forEach((result) => {
-    // Load the result data into the form
-    const resultContainer = document.createElement("div");
-    resultContainer.innerHTML = `
-      <p>${result.type} Result - Discipline: ${result.discipline} | Result Time: ${result.resultTime} | Date: ${result.date}</p>
-      <button class="update-result" data-member-id="${result.memberId}" data-result-id="${result.id}">Update</button>
-    `;
-    document.querySelector("#updateResultsForm").appendChild(resultContainer);
-  });
+  if (memberResult) {
+    document.querySelector("#updateType").value = memberResult.type;
+    document.querySelector("#updateDiscipline").value = memberResult.discipline;
+    document.querySelector("#updateResultTime").value = memberResult.resultTime;
+    document.querySelector("#updateDate").value = memberResult.date;
 
-  // Show the form
-  document.querySelector("#updateResultsForm").style.display = "block";
+    const form = document.querySelector("#updateResultsForm form");
+    form.dataset.memberId = memberResult.memberId;
+    form.dataset.resultId = memberResult.id;
+
+    document.querySelector("#updateResultsForm").style.display = "block";
+  } else {
+    console.log("Member result not found.");
+  }
 }
 
 
@@ -219,7 +202,9 @@ async function updateResult(memberId, resultId, result) {
     }
 
     // Update the local results array and posts grid
-    const index = results.findIndex((result) => result.memberId === memberId && result.id === resultId);
+    const index = results.findIndex(
+      (result) => result.memberId === memberId && result.id === resultId
+    );
     results[index] = result;
     updatePostsGrid();
   } catch (error) {
@@ -235,105 +220,13 @@ document
     document.querySelector("#updateResultsForm").style.display = "none";
   });
 
-// ======================================= UPDATE UI ======================================= //
 
-posts.forEach((post, index) => {
-  // ...
-  // Get the results for the current post
-  const postResults = results.filter(
-    (result) => result.memberId === post.memberId
-  );
-
-  // ...
-  postResults.forEach((result) => {
-    // Add an "Update Result" button for each result
-    resultsHTML += `<button class="update-results" data-member-id="${post.memberId}" data-result-id="${result.id}">Update Result</button>`;
-  });
-
-  // ...
-
-  const updateResultsButton = postElement.querySelector(".update-results");
-  updateResultsButton.addEventListener("click", () => {
-    // Retrieve the member ID and result ID from the button's data attributes
-    const memberId = updateResultsButton.dataset.memberId;
-    const resultId = updateResultsButton.dataset.resultId;
-    openUpdateResultsForm(memberId, resultId);
-  });
-
-  // ...
-});
-
-
-/*
-function openAddResultsForm(memberId) {
-  const form = document.querySelector("#addResultsForm");
-  form.dataset.postId = memberId; // Set the post id on the form to use when submitting
-  document.querySelector("#addResultsFormContainer").classList.remove("hidden");
-}
-
-function closeAddResultsForm() {
-  document.querySelector("#addResultsFormContainer").classList.add("hidden");
-}
-
-async function submitAddResultsForm(event) {
-  event.preventDefault();
-
-  const form = document.querySelector("#addResultsForm");
-  const memberId = form.dataset.postId;
-  const type = document.querySelector("#resultType").value;
-  const discipline = document.querySelector("#disciplineInput").value;
-  const rankTime = document.querySelector("#rankTimeInput").value;
-  const date = document.querySelector("#dateInput").value;
-
-  // Construct the new result object
-  const newResult = {
-    memberId,
-    type,
-    discipline,
-    rankTime,
-    date,
-  };
-
-  try {
-    // Add the new result to the Firebase database
-    const response = await fetch(`${endpoint}/results.json`, {
-      method: "POST",
-      body: JSON.stringify(newResult),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    // Check if the request was successful
-    if (!response.ok) {
-      throw new Error("HTTP error " + response.status);
-    }
-
-    // Get the id of the new result from the response
-    const data = await response.json();
-    const newResultId = data.name;
-
-    // Add the id to the new result object and add it to the 'results' array
-    newResult.id = newResultId;
-    results.push(newResult);
-
-    console.log("New result added:", newResult);
-
-    // Close the form
-    closeAddResultsForm();
-
-    // Update the posts grid to reflect the new result
-    updatePostsGrid();
-  } catch (error) {
-    console.error("Error adding new result:", error);
-  }
-}
 
 // ======================================= top five ======================================= //
 
 // Event listeners for the filter buttons
 
-/*
+
 document
   .getElementById("junior-filter-button")
   .addEventListener("click", () => {
@@ -478,4 +371,4 @@ function submitAddResultsForm(event) {
 
   closeAddResultsForm();
 }
-*/
+
