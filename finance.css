@@ -1,5 +1,5 @@
 /*
-all ( most of them )  colors and gradients are from (some adjusted) : https://cssgradient.io/gradient-backgrounds/
+all ( most of them )  colors and gradients used as backgrounds are from : https://cssgradient.io/gradient-backgrounds/
 
 
 */
@@ -10,8 +10,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    /*https://cssgradient.io/gradient-backgrounds/*/
-   background: #5433FF;  /* fallback for old browsers */
+   background: #5433FF; 
    background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF);  
    background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF); 
 
@@ -59,7 +58,6 @@ nav ul li a {
 
 
 
-
 /*table */
 .table {
   background-color: #fff5;
@@ -74,13 +72,11 @@ nav ul li a {
   padding: 2rem;
   margin-bottom: 2rem;
   width: 90%;
-  max-width: 800px; /* Adjust the maximum width as needed */
-  height: auto; /* Adjust the height as needed */
+  max-width: 800px; 
+  height: auto; 
   margin-left: auto;
   margin-right: auto;
 }
-
-
 
 .table__header {
   width: 100%;
@@ -119,16 +115,6 @@ nav ul li a {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 /*INCOME */
 
 .income-box {
@@ -164,8 +150,8 @@ nav ul li a {
   padding: 2rem;
   margin-bottom: 2rem;
   width: 90%;
-  max-width: 800px; /* Adjust the maximum width as needed */
-  height: auto; /* Adjust the height as needed */
+  max-width: 800px; 
+  height: auto; 
   margin-left: auto;
   margin-right: auto;
 }

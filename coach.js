@@ -95,7 +95,6 @@ function updateFormSubmit() {
 }
 
 // ======================================= CRUD OPERATIONS =======================================
-// Fetch posts
 async function getPosts() {
   try {
     const response = await fetch(`${endpoint}/posts.json`);
@@ -111,7 +110,6 @@ async function getPosts() {
       ...post,
     }));
 
-    // Filter posts to only include competitive swimmers
     const competitiveSwimmers = postObjects.filter(
       (post) => post.swimmerType === "competitive"
     );
@@ -123,7 +121,6 @@ async function getPosts() {
   }
 }
 
-// Fetch results
 async function getResults() {
   try {
     const response = await fetch(`${endpoint}/results.json`);
@@ -134,14 +131,13 @@ async function getResults() {
     }));
     console.log("Results:", results);
 
-    return results; // add this line
+    return results; 
   } catch (error) {
     console.error("Error fetching results:", error);
     return [];
   }
 }
 
-// Open update results form
 function openUpdateResultsForm(memberId, resultId) {
   const memberResult = results.find(
     (result) => result.memberId === memberId && result.id === resultId
@@ -163,7 +159,6 @@ function openUpdateResultsForm(memberId, resultId) {
   }
 }
 
-// Update result
 async function updateResult(memberId, resultId, result) {
   try {
     const response = await fetch(`${endpoint}/results/${resultId}.json`, {
@@ -178,7 +173,6 @@ async function updateResult(memberId, resultId, result) {
       throw new Error("HTTP error " + response.status);
     }
 
-    // Update the local results array and posts grid
     const index = results.findIndex(
       (result) => result.memberId === memberId && result.id === resultId
     );
@@ -190,7 +184,6 @@ async function updateResult(memberId, resultId, result) {
 }
 
 // ======================================= DATA DISPLAY =======================================
-// Update post grid
 async function updatePostsGrid() {
   try {
     console.log("Fetched posts:", posts);
@@ -206,7 +199,6 @@ async function updatePostsGrid() {
       );
 
       postResults.forEach((result) => {
-        // Add an "Update Result" button for each result
         resultsHTML += `
 <div class="result">
   <p>Type: ${result.type}</p>
@@ -233,8 +225,6 @@ async function updatePostsGrid() {
 
 }
 
-
-// Top five swimmers
 function openTopSwimmersDialog(team) {
   const dialog = document.createElement("div");
   dialog.classList.add("dialog");
@@ -273,7 +263,6 @@ function openTopSwimmersDialog(team) {
   document.body.appendChild(dialog);
 }
 
-// Get top swimmers by team
 function getTopSwimmersByTeam(team) {
   const filteredResults = results.filter((result) => {
     const member = posts.find((post) => post.id === result.memberId);
@@ -309,11 +298,9 @@ function getTopSwimmersByTeam(team) {
   return topSwimmers;
 }
 
-// Update top swimmers dialog
-
 function updateTopSwimmersDialog(team) {
   const topSwimmersContent = document.querySelector("#topSwimmersContent");
-  topSwimmersContent.innerHTML = ""; // Clear the existing content
+  topSwimmersContent.innerHTML = ""; 
 
   const topSwimmers = getTopSwimmersByTeam(team);
 
@@ -332,8 +319,6 @@ function updateTopSwimmersDialog(team) {
     topSwimmersContent.appendChild(disciplineElement);
   });
 }
-
-// Submit add results form
 
 function submitAddResultsForm(event) {
   event.preventDefault();
@@ -358,13 +343,9 @@ function submitAddResultsForm(event) {
   results.push(newResult);
   console.log("New result successfully added:", newResult);
 
-  // Find the post associated with the memberId
   const post = posts.find((post) => post.memberId === memberId);
-
-  // Update the view results dialog with the new result
   updateViewResultsDialog(memberId, post);
 
-  // Update the top swimmers dialog
   const team = post?.team;
   if (team) {
     updateTopSwimmersDialog(team);
@@ -372,7 +353,7 @@ function submitAddResultsForm(event) {
 
   closeAddResultsForm();
 }
-// Helper function to convert time string to seconds for sorting
+
 function convertToSeconds(time) {
   const [minutes, seconds] = time.split(":").map(Number);
   return minutes * 60 + seconds;

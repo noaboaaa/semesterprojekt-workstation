@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     /*https://cssgradient.io/gradient-backgrounds/*/
-   background: #5433FF;  /* fallback for old browsers */
+   background: #5433FF;  
    background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF);  
    background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF); 
 
@@ -19,12 +19,11 @@ body {
 
 body {
   
-    width: 100%;    /* Ensures that the main section takes up the full width of its parent container */
-    max-width: 100%; /* Ensures that the main section does not exceed the width of the viewport */
-    padding: 0 20px; /* Add 20px of padding on the left and right sides of the main section */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-    overflow-x: hidden; /* Prevents horizontal scrolling if elements within the main section overflow */
-
+    width: 100%;   
+    max-width: 100%; 
+    padding: 0 20px;
+    box-sizing: border-box; 
+    overflow-x: hidden; 
 }
 
 header {
@@ -150,9 +149,9 @@ nav ul li a {
   color: #272727;
   border-radius: 5px;
 }
+
+
 /* ---------- POP UPS -------------*/
-
-
 .popup {
   position: fixed;
   top: 50%;
@@ -194,10 +193,8 @@ nav ul li a {
 }
 
 
-
 /* -----------SEARCH N FILTER  -----------------*/
 
-/* Search input */
 label[for="input-search"] {
   display: block;
   margin-bottom: 10px;
@@ -215,7 +212,6 @@ label[for="input-search"] {
   color: #000000;
 }
 
-/* Filter dropdown */
 #filter-field {
   padding: 5px;
   border: none;
@@ -228,18 +224,12 @@ label[for="input-search"] {
 
 /* -----------REGISTRATION FORM -----------------*/
 
-
-
-/* Styling for the dialog container */
 dialog {
   border: none;
   background: none;
   box-shadow: none;
 }
 
-
-
-/* CSS */
 .register-button {
   display: block;
   margin: 20px auto;
@@ -260,7 +250,6 @@ dialog {
   background: rgba(255, 255, 255, 0.573);
   color: #000000;
 }
-
 
 
 /* form styling  https://uiverse.io/glisovic01/stale-chipmunk-33/*/

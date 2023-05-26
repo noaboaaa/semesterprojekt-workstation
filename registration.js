@@ -79,7 +79,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  // Other event listeners and code...
 
  
   document.querySelector("#age").addEventListener("input", handleAgeChange);
@@ -96,8 +95,6 @@ function handleAgeChange(event) {
     teamSelect.value = "";
   }
 }
-
-
 
 // ====================== INITAPP =========================== //
 
@@ -190,10 +187,10 @@ async function registrationFormSubmitted(event) {
     form.reset();
     hideRegistrationForm();
     updatePostsGrid();
-    showRegisterSuccessPopup(); // Show success pop-up
+    showRegisterSuccessPopup(); 
   } catch (error) {
     console.error("Error creating post:", error);
-    showRegisterErrorPopup(); // Show error pop-up
+    showRegisterErrorPopup(); 
   }
 }
 
@@ -245,11 +242,9 @@ function openUpdateForm(post) {
   document.querySelector("#updateFormContainer").style.display = "block";
 }
 
-// Function to handle update form submission
 async function updateFormSubmitted(event) {
   event.preventDefault();
 
-  // Retrieve the form data
   const form = document.querySelector("#updateForm");
   const formData = new FormData(form);
 
@@ -275,8 +270,6 @@ async function updateFormSubmitted(event) {
 }
 
 // ===================DELETE POST===================== //
-
-// Function to delete the post
 async function deletePost(postId) {
   try {
     await fetch(`${endpoint}/posts/${postId}.json`, {
@@ -307,13 +300,10 @@ function confirmDeletePost() {
   }
 }
 
-// Function to cancel post deletion
 function cancelDeletePost() {
-  // Close delete confirmation dialogue or perform other cleanup actions
   closeUpdateForm();
 }
 
-// Function to confirm post deletion
 function deletePostConfirmed() {
   const postId = document.querySelector("#updateForm").dataset.postId;
 
@@ -328,7 +318,6 @@ function deletePostConfirmed() {
     });
 }
 
-// Function to show success pop-up for post deletion
 function showDeleteSuccessPopup() {
   const successPopup = document.querySelector("#delete-success-popup");
   successPopup.classList.add("show");
@@ -337,7 +326,6 @@ function showDeleteSuccessPopup() {
   }, 2000);
 }
 
-// Function to show error pop-up for post deletion
 function showDeleteErrorPopup() {
   const errorPopup = document.querySelector("#delete-error-popup");
   errorPopup.classList.add("show");
@@ -348,14 +336,12 @@ function showDeleteErrorPopup() {
 
 // ====================== POP UPS =========================== //
 
-// Function to handle registration form submission
 async function registrationFormSubmitted(event) {
   event.preventDefault();
 
   const form = document.querySelector("#registration-form");
   const formData = new FormData(form);
 
-  // Extract form data
   const newPost = {
     name: formData.get("name"),
     email: formData.get("email"),
@@ -365,19 +351,17 @@ async function registrationFormSubmitted(event) {
   };
 
   try {
-    // Create new post
     await createPost(newPost);
     form.reset();
     hideRegistrationForm();
     updatePostsGrid();
-    showRegisterSuccessPopup(); // Show success pop-up
+    showRegisterSuccessPopup(); 
   } catch (error) {
     console.error("Error creating post:", error);
-    showRegisterErrorPopup(); // Show error pop-up
+    showRegisterErrorPopup(); 
   }
 }
 
-// Function to show success pop-up for update
 function showUpdateSuccessPopup() {
   const successPopup = document.querySelector("#update-success-popup");
   successPopup.classList.add("show");
@@ -386,7 +370,6 @@ function showUpdateSuccessPopup() {
   }, 2000);
 }
 
-// Function to show error pop-up for update
 function showUpdateErrorPopup() {
   const errorPopup = document.querySelector("#update-error-popup");
   errorPopup.classList.add("show");
@@ -395,7 +378,6 @@ function showUpdateErrorPopup() {
   }, 2000);
 }
 
-// Function to show success pop-up for registration
 function showRegisterSuccessPopup() {
   const successPopup = document.querySelector("#register-success-popup");
   successPopup.classList.add("show");
@@ -404,7 +386,6 @@ function showRegisterSuccessPopup() {
   }, 2000);
 }
 
-// Function to show error pop-up for registration
 function showRegisterErrorPopup() {
   const errorPopup = document.querySelector("#register-error-popup");
   errorPopup.classList.add("show");
@@ -413,11 +394,9 @@ function showRegisterErrorPopup() {
   }, 2000);
 }
 
-// Get references to the pop-up elements
 const successPopup = document.querySelector("#register-success-popup");
 const errorPopup = document.querySelector("#register-error-popup");
 
-// Function to hide the pop-ups after a specified duration
 function hidePopups() {
   successPopup.style.display = "none";
   errorPopup.style.display = "none";

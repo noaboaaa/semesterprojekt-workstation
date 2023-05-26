@@ -1,5 +1,5 @@
 /*
-all ( most of them )  colors and gradients are from (some adjusted) : https://cssgradient.io/gradient-backgrounds/
+all ( most of them )  colors and gradients used as backgrounds are from : https://cssgradient.io/gradient-backgrounds/
 
 
 */
@@ -58,21 +58,13 @@ nav ul li a {
 }
 
 main {
-    width: 100%;    /* Ensures that the main section takes up the full width of its parent container */
-    max-width: 100%; /* Ensures that the main section does not exceed the width of the viewport */
-    padding: 0 20px; /* Add 20px of padding on the left and right sides of the main section */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
-    overflow-x: hidden; /* Prevents horizontal scrolling if elements within the main section overflow */
+    width: 100%;    
+    max-width: 100%; 
+    padding: 0 20px; 
+    box-sizing: border-box;
+    overflow-x: hidden; 
 }
 
-
-
-#post-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 50px;
-  row-gap: 20px;
-}
 
 #post-container {
   display: grid;
@@ -81,9 +73,6 @@ main {
   padding: 60px;
   row-gap: 20;
   column-gap: 5%;
-  margin-left: auto; /* Align the post container to the right */
-  margin-right: 60px; /* Add some right margin for spacing */
-
 }
 
 
@@ -93,8 +82,6 @@ main {
   justify-content: start;
   padding: 50px;
   background-color: #d7c1c1;
-  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0, 0, 0, 0.15) 100%);
-
   border: 1px solid #c9bcbc;
   border-radius: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
@@ -158,8 +145,6 @@ main {
     z-index: 1;
 }
 
-
-
 /* ----------- dialog-----------------*/
 .hidden {
   display: none;
@@ -210,8 +195,8 @@ main {
 }
 
 .dialog-content {
-  max-height: 300px; /* Set the maximum height of the dialog content */
-  overflow-y: auto; /* Enable vertical scrolling when the content exceeds the height */
+  max-height: 300px; 
+  overflow-y: auto; 
 }
 
 
@@ -246,10 +231,10 @@ main {
 }
 
 #updateResultsForm {
-  position: fixed; /* Positions the element relative to the viewport */
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Translates the element up and left by half its own width and height to perfectly center it */
+  position: fixed; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -258,7 +243,7 @@ main {
   margin: 20px auto;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.31);
  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
- background-blend-mode: multiply,multiply;  border-radius: 8px; /* Optional: rounds the corners of the form */
+ background-blend-mode: multiply,multiply;  border-radius: 8px; 
   z-index: 9999;
 }
 

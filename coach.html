@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="coach.css">
 </head>
 <body> 
-    <!-- Header -->
     <header>
         <h1>Dolphin Swimming Club</h1>
         <nav>
@@ -24,15 +23,12 @@
     <!----------------------- grid container + sidebar --------------------------->
     <main>
         <section id="top-5">
-            <!-- Top Swimmers Dialog -->
             <div id="topSwimmersDialog" class="dialog hidden">
                 <h2></h2>
                 <div id="topSwimmersContent">
-                    <!-- Top swimmers content will be populated dynamically -->
                 </div>
                 <button id="closeTopSwimmersButton" class="dialog-button">Close</button>
             </div>            
-
             <button id="junior-filter-button">Top 5 Junior Swimmers</button>
             <button id="senior-filter-button">Top 5 Senior Swimmers</button>
         </section>
@@ -40,7 +36,6 @@
         <section id="main-section">
             <div id="posts" class="grid-container">
                 <div id="post-container"> 
-                    <!-- Competitive members' posts will be populated dynamically -->
                 </div>
             </div>
         </section>
@@ -52,13 +47,11 @@
                 <div id="trainingResultsContent">
                     <h3>Training Results</h3>
                     <ul id="trainingResultsList">
-                        <!-- Training results will be dynamically populated here -->
                     </ul>
                 </div>
                 <div id="tournamentResultsContent">
                     <h3>Tournament Results</h3>
                     <ul id="tournamentResultsList">
-                        <!-- Tournament results will be dynamically populated here -->
                     </ul>
                 </div>
                 <button id="closeViewResultsButton" class="dialog-button">Close</button>
@@ -67,7 +60,7 @@
 
         <!-----------------------add new results form -------------------------------->
         <div id="updateResultsForm" style="display: none;">
-  <h2>Update Result</h2>
+ <h2>Update Result</h2>
   <form>
     <select id="updateType">
       <option value="training">Training</option>
@@ -80,7 +73,6 @@
     <button type="button" id="closeUpdateResultsForm">Close</button>
   </form>
 </div>
-
     </main>
     <script src="coach.js"></script>
 </body>
