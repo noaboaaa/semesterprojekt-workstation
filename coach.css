@@ -53,11 +53,11 @@ nav ul li a {
 
 #post-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* adjust the minmax values according to your needs */
     gap: 3.125rem;
-    row-gap: 1.25rem;
-    margin-left: auto; /* Align the post container to the right */
-    margin-right: 3.75rem; /* Add some right margin for spacing */
+    padding: 3.75rem;
+    box-sizing: border-box;
+    overflow: auto; /* Add this property to handle overflowing */
 }
 
 .post {
