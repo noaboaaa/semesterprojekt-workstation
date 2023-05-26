@@ -1,19 +1,27 @@
 "use strict";
 
-// ======================================= CONSTANTS ======================================= //
-
+// ======================================= CONSTANTS =======================================
 const endpoint = "https://restinpeace-4a0bb-default-rtdb.firebaseio.com/";
 let posts = [];
 let results = [];
 
+// ======================================= INITIALIZATION =======================================
 document.addEventListener("DOMContentLoaded", (event) => {
-  console.log("DOMContentLoaded event fired");
   initApp();
+  setUpEventListeners();
+});
 
-  // Event listener for the dynamically generated "update-results" button
+// ======================================= EVENT LISTENERS SETUP =======================================
+function setUpEventListeners() {
+  setUpUpdateResultsButtonListener();
+  setUpFormSubmissionListener();
+  setUpFilterButtonsListeners();
+  setUpCloseFormListener();
+}
+
+function setUpUpdateResultsButtonListener() {
   const postContainer = document.getElementById("post-container");
   postContainer.addEventListener("click", function (event) {
-    // Check if the clicked element is the dynamically generated button
     if (event.target && event.target.classList.contains("update-results")) {
       const postElement = event.target.closest(".post");
       const memberId = postElement.dataset.memberId;
@@ -21,101 +29,73 @@ document.addEventListener("DOMContentLoaded", (event) => {
       openUpdateResultsForm(memberId, resultId);
     }
   });
+}
 
-  // Event listener for the form submission
+function setUpFormSubmissionListener() {
   document
     .querySelector("#updateResultsForm form")
     .addEventListener("submit", function (event) {
       event.preventDefault();
-      const type = document.querySelector("#updateType").value;
-      const discipline = document.querySelector("#updateDiscipline").value;
-      const resultTime = document.querySelector("#updateResultTime").value;
-      const date = document.querySelector("#updateDate").value;
+      updateFormSubmit();
+      document.querySelector("#updateResultsForm").style.display = "none";
+    });
+}
 
-      const memberId = this.dataset.memberId;
-      const resultId = this.dataset.resultId;
+function setUpFilterButtonsListeners() {
+  document
+    .getElementById("junior-filter-button")
+    .addEventListener("click", () => {
+      openTopSwimmersDialog("junior");
+    });
 
-      const result = {
-        id: resultId,
-        memberId: memberId,
-        type,
-        discipline,
-        resultTime,
-        date,
-      };
+  document
+    .getElementById("senior-filter-button")
+    .addEventListener("click", () => {
+      openTopSwimmersDialog("senior");
+    });
+}
 
-      updateResult(memberId, resultId, result);
-
-         // close the form after submission
-    document.querySelector("#updateResultsForm").style.display = "none";
-  });
-
-
-  // Event listener for closing the update results form
+function setUpCloseFormListener() {
   document
     .querySelector("#closeUpdateResultsForm")
     .addEventListener("click", function () {
       document.querySelector("#updateResultsForm").style.display = "none";
     });
-});
+}
 
-// ====================== INITAPP =========================== //
-
+// ======================================= APPLICATION INITIALIZATION =======================================
 async function initApp() {
   console.log("App is running");
   posts = await getPosts();
-  console.log("Posts after getPosts():", posts); // add this line
   await getResults();
-  console.log("Posts before updatePostsGrid():", posts); // add this line
   updatePostsGrid();
 }
 
-// ======================================= UPDATE POST GRID ======================================= //
+// ======================================= FORM SUBMISSION =======================================
+function updateFormSubmit() {
+  const type = document.querySelector("#updateType").value;
+  const discipline = document.querySelector("#updateDiscipline").value;
+  const resultTime = document.querySelector("#updateResultTime").value;
+  const date = document.querySelector("#updateDate").value;
 
-async function updatePostsGrid() {
-  try {
-    console.log("Fetched posts:", posts);
-    const postContainer = document.querySelector("#post-container");
-    postContainer.innerHTML = "";
-    await getResults();
-    console.log("Fetched results:", results);
+  const form = document.querySelector("#updateResultsForm form");
+  const memberId = form.dataset.memberId;
+  const resultId = form.dataset.resultId;
 
-    posts.forEach((post) => {
-      let resultsHTML = "";
-      const postResults = results.filter(
-        (result) => result.memberId === post.memberId
-      );
+  const result = {
+    id: resultId,
+    memberId: memberId,
+    type,
+    discipline,
+    resultTime,
+    date,
+  };
 
-      postResults.forEach((result) => {
-        // Add an "Update Result" button for each result
-resultsHTML += `
-<div class="result">
-  <p>Type: ${result.type}</p>
-  <p>Discipline: ${result.discipline}</p>
-  <p>Result Time: ${result.resultTime}</p>
-  <p>Date: ${result.date}</p>
-  <button class="update-results" data-member-id="${post.memberId}" data-result-id="${result.id}">Update Result</button>
-</div>`;
-      });
-
-      const postHTML = `
-        <div class="post" data-member-id="${post.memberId}">
-          <h2>${post.name}</h2>
-          <p>Age: ${post.age}</p>
-          <p>Team: ${post.team}</p>
-          ${resultsHTML}
-        </div>`;
-
-      postContainer.innerHTML += postHTML;
-    });
-  } catch (error) {
-    console.error("Error updating posts grid:", error);
-  }
+  updateResult(memberId, resultId, result);
 }
 
-
-// ======================================= GET POSTS ======================================= //
-
+// ======================================= CRUD OPERATIONS =======================================
+// Fetch posts
 async function getPosts() {
   try {
     const response = await fetch(`${endpoint}/posts.json`);
@@ -143,8 +123,7 @@ async function getPosts() {
   }
 }
 
-// ======================================= GET RESULTS ======================================= //
-
+// Fetch results
 async function getResults() {
   try {
     const response = await fetch(`${endpoint}/results.json`);
@@ -162,7 +141,7 @@ async function getResults() {
   }
 }
 
-// ======================================= OPEN UPDATE RESULTS FORM ======================================= //
+// Open update results form
 function openUpdateResultsForm(memberId, resultId) {
   const memberResult = results.find(
     (result) => result.memberId === memberId && result.id === resultId
@@ -184,9 +163,7 @@ function openUpdateResultsForm(memberId, resultId) {
   }
 }
 
-
-// ======================================= UPDATE RESULTS ======================================= //
-
+// Update result
 async function updateResult(memberId, resultId, result) {
   try {
     const response = await fetch(`${endpoint}/results/${resultId}.json`, {
@@ -212,33 +189,52 @@ async function updateResult(memberId, resultId, result) {
   }
 }
 
-// ======================================= CLOSE UPDATE RESULTS FORM ======================================= //
+// ======================================= DATA DISPLAY =======================================
+// Update post grid
+async function updatePostsGrid() {
+  try {
+    console.log("Fetched posts:", posts);
+    const postContainer = document.querySelector("#post-container");
+    postContainer.innerHTML = "";
+    await getResults();
+    console.log("Fetched results:", results);
 
-document
-  .querySelector("#closeUpdateResultsForm")
-  .addEventListener("click", function () {
-    document.querySelector("#updateResultsForm").style.display = "none";
-  });
+    posts.forEach((post) => {
+      let resultsHTML = "";
+      const postResults = results.filter(
+        (result) => result.memberId === post.memberId
+      );
+
+      postResults.forEach((result) => {
+        // Add an "Update Result" button for each result
+        resultsHTML += `
+<div class="result">
+  <p>Type: ${result.type}</p>
+  <p>Discipline: ${result.discipline}</p>
+  <p>Result Time: ${result.resultTime}</p>
+  <p>Date: ${result.date}</p>
+  <button class="update-results" data-member-id="${post.memberId}" data-result-id="${result.id}">Update Result</button>
+</div>`;
+      });
+
+      const postHTML = `
+        <div class="post" data-member-id="${post.memberId}">
+          <h2>${post.name}</h2>
+          <p>Age: ${post.age}</p>
+          <p>Team: ${post.team}</p>
+          ${resultsHTML}
+        </div>`;
+
+      postContainer.innerHTML += postHTML;
+    });
+  } catch (error) {
+    console.error("Error updating posts grid:", error);
+  }
+
+}
 
 
-
-// ======================================= top five ======================================= //
-
-// Event listeners for the filter buttons
-
-
-document
-  .getElementById("junior-filter-button")
-  .addEventListener("click", () => {
-    openTopSwimmersDialog("junior");
-  });
-
-document
-  .getElementById("senior-filter-button")
-  .addEventListener("click", () => {
-    openTopSwimmersDialog("senior");
-  });
-
+// Top five swimmers
 function openTopSwimmersDialog(team) {
   const dialog = document.createElement("div");
   dialog.classList.add("dialog");
@@ -277,6 +273,7 @@ function openTopSwimmersDialog(team) {
   document.body.appendChild(dialog);
 }
 
+// Get top swimmers by team
 function getTopSwimmersByTeam(team) {
   const filteredResults = results.filter((result) => {
     const member = posts.find((post) => post.id === result.memberId);
@@ -301,16 +298,18 @@ function getTopSwimmersByTeam(team) {
   });
 
   Object.entries(topSwimmers).forEach(([discipline, swimmers]) => {
-    swimmers.sort(
-      (a, b) => parseFloat(a.resultTime) - parseFloat(b.resultTime)
-    );
+    swimmers.sort((a, b) => {
+      const aTime = convertToSeconds(a.resultTime);
+      const bTime = convertToSeconds(b.resultTime);
+      return aTime - bTime;
+    });
     topSwimmers[discipline] = swimmers.slice(0, 5);
   });
 
   return topSwimmers;
 }
 
-// ===================== update top five swimmers ========================= //
+// Update top swimmers dialog
 
 function updateTopSwimmersDialog(team) {
   const topSwimmersContent = document.querySelector("#topSwimmersContent");
@@ -333,6 +332,8 @@ function updateTopSwimmersDialog(team) {
     topSwimmersContent.appendChild(disciplineElement);
   });
 }
+
+// Submit add results form
 
 function submitAddResultsForm(event) {
   event.preventDefault();
@@ -371,4 +372,8 @@ function submitAddResultsForm(event) {
 
   closeAddResultsForm();
 }
-
+// Helper function to convert time string to seconds for sorting
+function convertToSeconds(time) {
+  const [minutes, seconds] = time.split(":").map(Number);
+  return minutes * 60 + seconds;
+}
