@@ -93,6 +93,8 @@ main {
   justify-content: start;
   padding: 50px;
   background-color: #d7c1c1;
+  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0, 0, 0, 0.15) 100%);
+
   border: 1px solid #c9bcbc;
   border-radius: 40px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
