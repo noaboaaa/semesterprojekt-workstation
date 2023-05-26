@@ -1,33 +1,29 @@
-/*
-all ( most of them )  colors and gradients are from (some adjusted) : https://cssgradient.io/gradient-backgrounds/
-
-
-*/
+/* Added CSS Reset and box-sizing: border-box to all elements */
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    /*https://cssgradient.io/gradient-backgrounds/*/
-   background: #5433FF;  /* fallback for old browsers */
-   background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF);  
-   background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF); 
-
+    background: #5433FF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF);  
+    background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF); 
 }
 
 header {
     background-color: #007baf;
     color: white;
-    padding: 10px 0;
+    padding: 0.625rem 0;
     text-align: center;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 0.1875rem 0.375rem rgba(0, 0, 0, 0.16);
 }
 
 header h1 {
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
 }
 
 nav {
@@ -36,14 +32,12 @@ nav {
 
 nav ul {
     list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     justify-content: space-around;
 }
 
 nav ul li {
-    padding: 15px 0;
+    padding: 0.9375rem 0;
     transition: background-color 0.3s;
 }
 
@@ -54,82 +48,37 @@ nav ul li:hover {
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 20px;
-}
-
-/* Adjust the width and positioning of the sections */
-
-
-
-
-
-#post-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 50px;
-  row-gap: 20px;
+    font-size: 1.25rem;
 }
 
 #post-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
-  padding: 60px;
-  row-gap: 20;
-  column-gap: 5%;
-  margin-left: auto; /* Align the post container to the right */
-  margin-right: 60px; /* Add some right margin for spacing */
-
-}
-
-
-.post {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  padding: 50px;
-  background-color: #d7c1c1;
-  border: 1px solid #c9bcbc;
-  border-radius: 40px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3.125rem;
+    row-gap: 1.25rem;
+    margin-left: auto; /* Align the post container to the right */
+    margin-right: 3.75rem; /* Add some right margin for spacing */
 }
 
 .post {
-  position: relative;
-  padding: 30px;
-  border-radius: 40px;
-  background: linear-gradient(to bottom, rgba(53, 17, 255, 0.802) 0%, rgba(0, 0, 0, 0.15) 100%);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-  color: #fff;
-  width: 400px;
-}
-
-.post::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(at top center, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.4) 120%);
-  border-radius: 40px;
-}
-
-.post h3 {
-  margin: 0 0 10px;
-  font-size: 1.5rem;
-  font-weight: bold;
-  letter-spacing: 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    padding: 3.125rem;
+    background-color: #d7c1c1;
+    border: 1px solid #c9bcbc;
+    border-radius: 2.5rem;
+    box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.15);
 }
 
 .post button {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 14px;
+    margin-top: 0.625rem;
+    padding: 0.625rem;
+    font-size: 0.875rem;
     color: #fff;
     background-color: #007BFF;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
     position: relative;
