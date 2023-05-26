@@ -59,7 +59,13 @@ nav ul li a {
 
 
 
-
+main {
+    width: 100%;    /* Ensures that the main section takes up the full width of its parent container */
+    max-width: 100%; /* Ensures that the main section does not exceed the width of the viewport */
+    padding: 0 20px; /* Add 20px of padding on the left and right sides of the main section */
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    overflow-x: hidden; /* Prevents horizontal scrolling if elements within the main section overflow */
+}
 
 
 
